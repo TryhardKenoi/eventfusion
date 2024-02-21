@@ -77,9 +77,10 @@ class People extends BaseController
   public function createGroupPost(){
     $idU = \App\Helpers\User::user()->id;
 
-    $name = $this->request->getPost('group_name');
+    $name = $this->request->getPost('name');
     $description = $this->request->getPost('description'); 
     $group = $this->ionAuth->createGroup($name, $description);
+
 
     if(!$group){
       return redirect()->to('/profile')->with('flash-error', 'Skupina již existuje');

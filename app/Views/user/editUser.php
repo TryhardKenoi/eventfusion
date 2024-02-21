@@ -18,12 +18,8 @@
           <input type="text" class="form-control" id="last_name" name="last_name" value="<?= $user->last_name; ?> ">
         </div>
         <div class="form-group">
-          <label for="end">Nové heslo</label>
-          <input type="password" class="form-control" id="password" name="password" value="">
-        </div> 
-        <div class="form-group">
-          <label for="end">Nové heslo znovu</label>
-          <input type="password" class="form-control" id="password-again" name="password-again" value="">
+          <label for="start">Email</label>
+          <input type="email" class="form-control" id="email" name="email" value="<?= $user->email; ?> ">
         </div>
         <div class="form-group">
           <label for="start">Telefonní číslo</label>
@@ -33,7 +29,14 @@
           <label for="start">Firma</label>
           <input type="text" class="form-control" id="company" name="company" value="<?= $user->company; ?> ">
         </div>
-        
+        <div class="form-group">
+          <label for="end">Nové heslo</label>
+          <input type="password" class="form-control" id="password" name="password" value="">
+        </div> 
+        <div class="form-group">
+          <label for="end">Nové heslo znovu</label>
+          <input type="password" class="form-control" id="password-again" name="password-again" value="">
+        </div> 
         <button type="submit" id="submitButton" class="btn btn-secondary" name="button">Odeslat</button>
     </form>
   </div>

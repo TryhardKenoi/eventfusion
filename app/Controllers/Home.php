@@ -2,16 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Helpers\User;
-use App\Models\EventModel;
+
 use App\Models\GetEvent;
-use App\Models\Model;
-use App\Models\UserModel;
 use App\Libraries\Datum;
-use App\Models\EventyGroupModel;
-use App\Models\EventyUserModel;
-use App\Models\GroupModel;
-use DateTime;
+
 
 class Home extends BaseController
 {
@@ -64,5 +58,8 @@ class Home extends BaseController
     return json_encode($events_data);
   }
 
+  public function chat(){
+    return view('chat');
+  }
   
 }

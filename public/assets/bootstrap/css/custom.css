@@ -9,10 +9,7 @@ body,html {
 }
 
 /*RESET*/
-a {
-    color:inherit !important;
-    text-decoration: none;
-}
+
 
 ul {
     list-style-type: none;

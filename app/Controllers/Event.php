@@ -9,6 +9,7 @@ use App\Libraries\Datum;
 use App\Models\EventyGroupModel;
 use App\Models\EventyUserModel;
 use App\Models\GroupModel;
+use App\Models\ChatModel;
 
 class Event extends BaseController
 {
@@ -87,17 +88,21 @@ class Event extends BaseController
     return $data;
   }
 
-  public function editEventView($id) //Metodou získám data, která použiju v formě pro editaci eventu
-  {
+  public function editEventView($id) {
     $model = new Model();
+    $chatModel = new ChatModel();
     $e = $model->getEventById($id);
+    $chatHistory = $chatModel->where('event_id', $id)->findAll();
     $data['event'] = $e;
     $data['users'] = $model->getUsersFromEventByEventId($id);
     $data['groups'] = $model->getGroupsFromEventByEventId($id);
     $data['people'] = $model->getUsersToAddFiltered($id);
     $data['org'] = $model->getRolesToAddFiltered($id);
+    $data['chat'] = $chatHistory;
+
     return view('events/eventEdit', $data);
-  }
+
+}
 
   public function editEventPost($eventId){
     $data = $this->request->getPost();

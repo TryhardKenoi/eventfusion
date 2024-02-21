@@ -52,6 +52,8 @@ class PeopleAdmin extends BaseController
     }
     
     $prep = [
+      'email' => $data['email'],
+      'username' => $data['email'],
       'first_name' => $data['first_name'],
       'last_name' => $data['last_name'],
       'phone' => $data['phone'],
@@ -141,5 +143,28 @@ class PeopleAdmin extends BaseController
 
     $model->removeUserFromGroup($groupId, $userId);
     return redirect()->to('/admin/group/edit/'.$groupId)->with('Fsuccess', 'Uspesne odebrano!');
+  }
+
+  public function createGroupView(){
+    return view('groups/createGroupAdmin');
+  }
+
+  public function createGroupPost(){
+    $idU = \App\Helpers\User::user()->id;
+
+    $name = $this->request->getPost('name');
+    $description = $this->request->getPost('description'); 
+    $group = $this->ionAuth->createGroup($name, $description);
+
+
+    if(!$group){
+      return redirect()->to('/admin/groups')->with('flash-error', 'Skupina již existuje');
+    }else{
+      $this->ionAuth->addToGroup($group, $idU);
+      $this->ionAuth->updateGroup($group, $name, array(
+        'owner_id' => $idU
+      ));
+      return redirect()->to('/admin/groups')->with('flash-success', 'Skupina vytvořena');
+    }
   }
 }

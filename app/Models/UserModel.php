@@ -10,6 +10,8 @@ class UserModel extends \CodeIgniter\Model
     protected $table = 'users';
     protected $id = '$id';
     protected $allowedFields = [
+        'email',
+        'username',
         'first_name',
         'last_name',
         'phone',

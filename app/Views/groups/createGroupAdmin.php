@@ -1,7 +1,7 @@
 <?= $this->extend('layout/Master') ?>
 <?= $this->section('content'); ?>
 
- <form action="<?= base_url('/group/create') ?>" method="post">
+ <form action="<?= base_url('/admin/group/create') ?>" method="post">
     <div class="text-center">
         <div class="text-center pt-3">
             <h1>Vytvoř skupinu</h1>
