@@ -35,7 +35,6 @@ $routes->setAutoRoute(true);
 
 //Routes - veřejné trasy
 $routes->get('/', 'Home::index');
-$routes->get('/chat', 'Home::chat');
 
 //Routes - Trasy s oprávněním přihlášeného uživatele
 $routes->group('/', ['filter'=> 'auth'],function($routes) {
@@ -55,13 +54,6 @@ $routes->group('/', ['filter'=> 'auth'],function($routes) {
 
 
 
-
-
-	$routes->post('chat/(:num)/(:num)', 'Chat::saveMessage/$1/$2');
-
-
-
-
 	
 	//Routes - Trasy související s uživateli
 	$routes->get('/profile', 'People::profil/');
@@ -73,6 +65,11 @@ $routes->group('/', ['filter'=> 'auth'],function($routes) {
 	$routes->get('/group/(:num)', 'People::getGroupById/$1');
 	$routes->post('/group/addUser/(:num)', 'People::addUserToGroup/$1');
     $routes->get('/group/user/remove/(:num)/(:num)', 'People::removeUserFromGroup/$1/$2');
+
+	
+	$routes->get('/chat/(:num)', 'Chat::index/$1');
+	$routes->get('/chat', 'Chat::fetchChat');
+	$routes->post('/chat', 'Chat::add');
 });
 
 //Routes -  Trasy s admin oprávněním

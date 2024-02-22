@@ -4,16 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ChatModel extends \CodeIgniter\Model
+class ChatModel extends Model
 {
 
     protected $table = 'chat';
     protected $id = '$id';
+    
     protected $allowedFields = [
         'event_id',
-        'user_id',
-        'message',
-        'time',
+        'created_at'
     ];
     protected $returnType = "object";
 

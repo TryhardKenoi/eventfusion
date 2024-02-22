@@ -28,7 +28,11 @@ $(document).ready(() => {
     }
   });
 
+  /*
+
   $("#selectUserEvent").bootstrapDualListbox({
       // see next for specifications
   });
+
+  */
 });

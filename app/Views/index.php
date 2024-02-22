@@ -52,6 +52,9 @@ foreach ($events as $event) {
           <div class="modal-body3"></div>
           <div class="modal-body4"></div> <br>
           <div class="modal-footer d-flex justify-content-center">
+            <a href="<?= base_url('/chat/');?>" id="chatLoad" class="btn btn-primary">Chat</a>
+
+
             <a href="" id="moreButton" type=""  class="btn btn-primary">Více</a>
           </div>
         </div>
@@ -96,7 +99,7 @@ $(document).ready(function() {
         // Kód, který se provede po kliknutí na událost
         const eventId = info.event._def.publicId;
         const url = "<?= base_url('/event') ?>"+'/'+eventId;
-
+       
         $.ajax(url,{  //ajax = pomůcka, která dovolí poslat request na server, aniž bych musel obnovit stránku
           type: 'GET',  //typ routy (např. POST, GET)
           success: function(data) { //funkce s parametrem data, data = hodnota
@@ -117,6 +120,9 @@ $(document).ready(function() {
             $('.modal-body').html("Začátek eventu: " +formattedStDate);
             $('.modal-body2').html("Konec eventu: " +formattedEnDate);
             $('#moreButton').attr('href', '<?= base_url('/event/edit')?>' + '/' +event.id);
+            const cBtn = $('#chatLoad').attr('href');
+            $('#chatLoad').attr('href', cBtn+eventId)
+
 
             //skupiny
             if(event.groups.length > 0) {

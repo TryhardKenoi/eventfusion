@@ -199,30 +199,6 @@
 </div>
 
 
-<form action="<?= base_url('/chat'). '/' . $event->id . '/'. \App\Helpers\User::user()->id?>" method="post">
-            <input type="text" class="form-controler" name="message" id="message" placeholder="Type message"
-              aria-label="Recipient's username" aria-describedby="button-addon2" />
-            <button class="btn btn-warning" type="submit" id="button-addon2" style="padding-top: .55rem;">
-              Button
-            </button>
-          </form>
-
-
-<div class="chat-history">
-    <h2>Historie chatu</h2>
-    <ul>
-        <?php foreach ($chat as $message): ?>
-            <li>
-                <strong><?php echo $message->user_id; ?>:</strong>
-                <span><?php echo $message->message; ?></span>
-                <span class="timestamp"><?php echo $message->time; ?></span>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</div>
-
-
-
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
   const userId = '<?= \App\Helpers\User::user()->id; ?>';
