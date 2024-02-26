@@ -62,4 +62,9 @@ class Home extends BaseController
     return view('chat');
   }
   
+  public function multiselect(){
+    return view('multiselect');
+  }
+
+
 }

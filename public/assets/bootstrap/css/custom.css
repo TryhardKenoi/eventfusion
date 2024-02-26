@@ -9,12 +9,53 @@ body,html {
 }
 
 
+/* Custom styles for chat interface */
+.container {
+    max-width: 800px;
+}
+
+.chat {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-list {
+    padding-left: 0;
+}
+
+.chat-list li {
+    margin-bottom: 1rem;
+}
+
+.chat-list li:last-child {
+    margin-bottom: 0;
+}
+
+.input-group-append button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-append button:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.input-group-append button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+
+
 /*RESET*/
 
 
 ul {
     list-style-type: none;
 }
+
 
 /*FullCalendar*/
 

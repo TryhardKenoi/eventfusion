@@ -52,9 +52,7 @@ foreach ($events as $event) {
           <div class="modal-body3"></div>
           <div class="modal-body4"></div> <br>
           <div class="modal-footer d-flex justify-content-center">
-            <a href="<?= base_url('/chat/');?>" id="chatLoad" class="btn btn-primary">Chat</a>
-
-
+            <a href="" id="chatButton" type=""  class="btn btn-primary">Chat</a>
             <a href="" id="moreButton" type=""  class="btn btn-primary">Více</a>
           </div>
         </div>
@@ -88,7 +86,7 @@ $(document).ready(function() {
         today:    'dnes',
         month:    'měsíc',
         week:     'týden',
-        day:      'dnes',
+        day:      'den',
         list:     'seznam'
       },
       events: <?= $eventsList ?>,
@@ -120,8 +118,7 @@ $(document).ready(function() {
             $('.modal-body').html("Začátek eventu: " +formattedStDate);
             $('.modal-body2').html("Konec eventu: " +formattedEnDate);
             $('#moreButton').attr('href', '<?= base_url('/event/edit')?>' + '/' +event.id);
-            const cBtn = $('#chatLoad').attr('href');
-            $('#chatLoad').attr('href', cBtn+eventId)
+            $('#chatButton').attr('href', '<?= base_url('/chat')?>' + '/' +event.id);
 
 
             //skupiny

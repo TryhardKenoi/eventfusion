@@ -6,7 +6,7 @@
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/custom.css'); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
+    
     <!-- PLUGIN -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('/assets/dist/bootstrap-duallistbox.css'); ?>">
     <link rel="icon" href="<?= base_url('/eventfussion.png'); ?>">

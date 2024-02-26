@@ -6,20 +6,20 @@ $(document).ready(() => {
     $.ajax({
       url: "/chat?evid="+window.location.href.split("/")[4],
       type: "GET",
-      success: function(data) {
-        const parse = JSON.parse(data);
-        parse.messages.forEach((msg) => {
-          if (msgList.some(e => e.id === msg.id)) {
+        success: function(data) {
+          const parse = JSON.parse(data);
+          parse.messages.forEach((msg) => {
+              if (msgList.some(e => e.id === msg.id)) {
+                  return;
+              }
+              msgList.push(msg); 
+              const messageItem = "<li class='my-4 d-flex'><div class='" + (userId == msg.user_id ? 'ml-auto' : 'mr-auto') + " d-block text-break'><strong>" + msg.first_name + " " + msg.last_name + ":</strong> " + msg.message + "</div></li>";
+              chat.append(messageItem);
               
-          }else {
-            msgList.push(msg); 
-            if(userId == msg.user_id) {
-              chat.append("<li class='my-4 d-flex'><div class='ml-auto d-block text-break'><strong>"+msg.first_name+" "+msg.last_name+":</strong> "+msg.message+"</div></li>");
-            }else {                
-              chat.append("<li class='my-4 d-flex'><div class='mr-auto d-block text-break'><strong>"+msg.first_name+" "+msg.last_name+":</strong> "+msg.message+"</div></li>");
-            }
-          }
-        })
+              // Posunout scrollování na maximální hodnotu
+              var chatContainer = $(".chat");
+              chatContainer.scrollTop(chatContainer[0].scrollHeight);
+          });
       }
     });
   }

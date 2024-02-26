@@ -21,7 +21,9 @@ class Chat extends BaseController
   
   public function index($id) 
   { 
-    if(empty($this->chatModel->where('event_id', $id)->get()->getResult())) return redirect()->to('/');
+    $this->chatModel->insert([
+      'event_id' => $id
+    ]);
 
     $chat = $this->chatModel->select('chat.*,eventy.nazev_eventu')->join('eventy', 'eventy.id=chat.event_id','left')->where('event_id', $id)->get()->getResult()[0];
     $data['chat'] = $chat;
