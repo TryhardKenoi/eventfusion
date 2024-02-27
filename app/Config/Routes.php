@@ -51,7 +51,7 @@ $routes->group('/', ['filter'=> 'auth'],function($routes) {
 	$routes->get('/event/edit/user/remove/(:num)/(:num)', 'Event::removeUserFromEvent/$1/$2');
 	$routes->get('/event/edit/group/remove/(:num)/(:num)', 'Event::removeGroupFromEvent/$1/$2');
 
-	$routes->post('/event/delete/(:num)', 'Home::deleteEvent/$1');
+	$routes->post('/event/delete/(:num)', 'Event::deleteEvent/$1');
 
 
 

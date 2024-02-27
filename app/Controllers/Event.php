@@ -42,14 +42,38 @@ class Event extends BaseController
     //users a groups
     $userList = $this->request->getPost('users');
     $groupList = $this->request->getPost('groups');
+    if($this->request->getPost('description')){
+      $description = $this->request->getPost('description');
+    }else{
+      $description = "";
+    }
+
+    $validationRules = [
+      'nazev_eventu' => 'required',
+      'rozgah_datum' => 'required'
+    ];
+
+    $validationMessages = [
+      'nazev_eventu' => [
+        'required' => 'Zadejte název eventu'
+      ],
+      'rozgah_datum' => [
+        'required' => 'Zadejte rozsah konání eventu'
+      ],
+    ];
+
+    if(!$this->validate($validationRules, $validationMessages)){
+      return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
 
     $data = [
       'nazev_eventu' => $this->request->getPost('nazev_eventu'),
       'zacatek_eventu' => null,
       'konec_eventu' => null,
       'color' => $this->request->getPost('color'),
-      'creator_id' => $userId
-    ]; 
+      'creator_id' => $userId,
+      'description' => $description
+    ];
 
 
     $rozgahDatum = $this->request->getPost('rozgah_datum'); // Opravený název proměnné

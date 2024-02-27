@@ -4,12 +4,12 @@
 <div class="container">
     <div class="row mt-4">
         <div class="col-12">
-            <h1>Seznam eventů</h1>
+            <h1>Seznam všech eventů</h1>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Název</th>
+                    <th scope="col">Název eventu</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -19,8 +19,8 @@
                         <td><?= $e->id ?></td>
                         <td><?= $e->nazev_eventu ?></td>
                         <td class="d-flex mx-1">
-                            <a href="<?= base_url('/admin/event/del/'.$e->id) ?>" class="btn btn-danger mr-2">Smazat</a>
                             <a href="<?= base_url('/admin/event/edit/'.$e->id) ?>" class="btn btn-primary mr-2">Upravit</a>
+                            <a href="<?= base_url('/admin/event/del/'.$e->id) ?>" class="btn btn-danger">Smazat</a>
                         </td>
                         
                     </tr>

@@ -68,6 +68,7 @@ class People extends BaseController
     ];
     $model->update($id, $prep);
     return redirect()->to('profile/details/'.$id)->with('flash-success', 'Údaje úspěšně změněny');
+
   }
 
   public function createGroupView(){
@@ -189,10 +190,10 @@ class People extends BaseController
         $model = new Model();
 
         if($userId == User::user()->id) {
-            return redirect()->to('/group/'.$groupId)->with('flash-error', 'Nemuze odebrat sam sebe!');
+            return redirect()->to('/group/'.$groupId)->with('flash-error', 'Nemůžete odebrat sám sebe!');
         }
 
         $model->removeUserFromGroup($groupId, $userId);
-        return redirect()->to('/group/'.$groupId)->with('Fsuccess', 'Uspesne odebrano!');
+        return redirect()->to('/group/'.$groupId)->with('flash-success', 'Úspěšně odebráno!');
     }
 }

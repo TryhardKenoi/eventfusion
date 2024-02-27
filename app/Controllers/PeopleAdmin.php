@@ -70,18 +70,52 @@ class PeopleAdmin extends BaseController
 
   public function registerUserPost()
   {
-    $identity = $this->request->getPost('email');
-    $password = $this->request->getPost('password');
-    $email = $this->request->getPost('email');
-    $additional_data = array(
-      'first_name' => $this->request->getPost('first_name'),
-      'last_name' => $this->request->getPost('last_name'),
-    );
-    $group = array('2'); //Group
+    helper('form');
 
-    $this->ionAuth->register($identity, $password, $email, $additional_data, $group);
+    //validace vsutpu
+    $rules = [
+      'email' => 'required|valid_email|is_unique[users.email]',
+      'first_name' => 'required',
+      'last_name' => 'required',
+      'password' => 'required',
+      'password_confirm' => 'required|matches[password]'
+    ];
+    //customizovana validace
+    $errors = [
+      'email' => [
+        'required' => 'Musíš vyplnit email!',
+        'is_unique' => 'Email je již použit!'
+      ],
+      'first_name' =>  [
+        'required' => 'Musíš vyplnit jméno!',
+      ],
+      'last_name' =>  [
+        'required' => 'Musíš vyplnit přijmení!',
+      ],
+      'password' =>  [
+        'required' => 'Musíš vyplnit heslo!',
+      ],
+      'password_confirm' =>  [
+        'required' => 'Musíš vyplnit heslo kontrola!',
+        'matches' => 'Hesla se musí shodovat!'
+      ],
+    ];
 
-      return redirect()->to('admin/users')->with('success', 'Uživatel vytvořen');
+    if(!$this->validate($rules, $errors)){
+      return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }else{
+      $identity = $this->request->getPost('email');
+      $password = $this->request->getPost('password');
+      $email = $this->request->getPost('email');
+      $additional_data = array(
+        'first_name' => $this->request->getPost('first_name'),
+        'last_name' => $this->request->getPost('last_name'),
+      );
+      $group = array('2'); //Group
+  
+      $this->ionAuth->register($identity, $password, $email, $additional_data, $group);
+      return redirect()->to('/auth/login');
+    }
   }
 
   public function getGroups()
@@ -154,9 +188,11 @@ class PeopleAdmin extends BaseController
 
     $name = $this->request->getPost('name');
     $description = $this->request->getPost('description'); 
+    if(!$description){
+      $description = "";
+    }
     $group = $this->ionAuth->createGroup($name, $description);
-
-
+    
     if(!$group){
       return redirect()->to('/admin/groups')->with('flash-error', 'Skupina již existuje');
     }else{

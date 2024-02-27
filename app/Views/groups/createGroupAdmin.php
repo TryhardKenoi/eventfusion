@@ -11,8 +11,8 @@
 
     <div class="container">
         <div class="form-group">
-            <label for="name">Název skupiny</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <label for="name">Název skupiny<p class="d-inline" style="color: red;">*</p></label>
+            <input type="text" class="form-control" id="name" required name="name">
         </div>
         <div class="form-group">
             <label for="name">Popisek skupiny</label>
