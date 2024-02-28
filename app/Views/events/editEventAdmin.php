@@ -28,10 +28,9 @@
       <label for="color">Barva</label>
       <input type="color" id="color" name="color" value="<?= $event->color; ?>">
     </div>
-    <div class="row">
-      <div class="col-md-6 col-12">
-        <h1 class="text-center">Uživatelé</h1>
-        <table class="table">
+
+<h1 class="text-center pt-3">Uživatelé</h1>
+  <table class="table">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -51,10 +50,18 @@
             <?php endforeach; ?>
           </tbody>
         </table>
-      </div>
-      <div class="col-md-6 col-12">
-        <h1 class="text-center">Skupiny</h1>
-        <table class="table">
+
+        <div class="form-group w-100">
+          <label for="exampleInputEmail1">Přidat lidi</label>
+          <select class="form-control" id="users" name="users[]" multiple>
+            <?php foreach ($people as $p) : ?>
+              <option value="<?= $p->id ?>"><?= $p->first_name . ' ' . $p->last_name ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+<h1 class="text-center pt-3">Skupiny</h1>
+<table class="table">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -74,21 +81,7 @@
             <?php endforeach; ?>
           </tbody>
         </table>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6 col-12">
-        <div class="form-group w-100">
-          <label for="exampleInputEmail1">Přidat lidi</label>
-          <select class="form-control" id="users" name="users[]" multiple>
-            <?php foreach ($people as $p) : ?>
-              <option value="<?= $p->id ?>"><?= $p->first_name . ' ' . $p->last_name ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6 col-12">
         <div class="form-group w-100">
           <label for="exampleInputEmail1">Přidat skupiny</label>
           <select class="form-control" id="groups" name="groups[]" multiple>
@@ -97,11 +90,10 @@
             <?php endforeach; ?>
           </select>
         </div>
-      </div>
-    </div>
 
-    <div class="pb-5">
-      <label for="location">Místo konání</label>
+    <div class="pt-5 pb-5">
+      <h1 class="text-center">Místo konání</h1>
+      <label for="location">Souřadnice</label>
       <input type="text" name="latitute" value="<?= $event->latitute; ?>" id="latitute" readonly />
       <input type="text" name="longtitute" value="<?= $event->longtitute; ?>" id="longtitute" readonly />
       <div id="map" style="height: 400px;"></div>
@@ -148,5 +140,11 @@
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+
+<script> 
+  $('#users').bootstrapDualListbox();
+  $('#groups').bootstrapDualListbox();
+</script>
 
 <?= $this->endSection(); ?>

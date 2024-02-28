@@ -23,13 +23,6 @@ foreach ($events as $event) {
 <?= $this->extend('layout/Master'); ?>
 <?= $this->section('content'); ?>
   <div class="text-center pt-5">
-    <?php if (\App\Helpers\User::isLoggedIn()): ?>
-        <a href="<?= base_url('/event/create'); ?>">
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
-                Přidej event
-            </button>
-        </a>
-  <?php endif; ?>
 
     <div class="modal" tabindex="-1">
       <div class="modal-dialog">
@@ -77,7 +70,7 @@ $(document).ready(function() {
       lang: 'CZ',
       height: 800,
       headerToolbar: {
-          left: 'prev,next today', // Tlačítka pro předchozí a následující
+          left: 'prev,next today myCustomButton', // Tlačítka pro předchozí a následující
           center: 'title', // Název zobrazení (např. "Měsíc", "Týden")
           right: 'dayGridMonth,timeGridWeek,timeGridDay,list' // Tlačítka pro změnu zobrazení
       },
@@ -87,8 +80,16 @@ $(document).ready(function() {
         month:    'měsíc',
         week:     'týden',
         day:      'den',
-        list:     'seznam'
+        list:     'seznam',
       },
+      customButtons: {
+            myCustomButton: {
+                text: '+',
+                click: function() {
+                    window.location.href = '<?= base_url('/event/create'); ?>'
+                }
+            }
+        },
       events: <?= $eventsList ?>,
 
       eventClick: function(info) {
@@ -141,10 +142,7 @@ $(document).ready(function() {
                $('.modal-desc').html("Popisek: "+event.description);
                console.log(event.description);
             }else{
-
             }
-
-
           },
           error: function(xhr, status, error) {
             console.log(error); //chybová hláška

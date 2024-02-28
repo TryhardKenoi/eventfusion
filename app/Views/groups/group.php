@@ -67,8 +67,8 @@
     <div class="col-12">
       <?php if(count($people) != 0): ?>
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Přidat lidi</label>
+        <div class="form-group pt-4">
+          <label for="exampleInputEmail1"><h5>Přidat lidi</h5></label>
           <select class="form-control" id="users" name="users[]" multiple>
             <?php foreach($people as $p): ?>
               <option value="<?= $p->id ?>"><?= $p->first_name .' ' . $p->last_name ?></option>
@@ -82,8 +82,8 @@
   </div>
 </div>
 
-<script
-  <script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+<script>
         const div1 = document.getElementById('default');
         const div2 = document.getElementById('edit');
         const toggleButton = document.getElementById('editButton');
@@ -95,8 +95,8 @@
             // Skryje tlačítko
             toggleButton.style.display = 'none';
         });
-    </script>
-
+    
+        $('#users').bootstrapDualListbox();
 </script>
 
 <?php $this->endSection(); ?>

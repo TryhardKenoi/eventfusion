@@ -4,6 +4,7 @@
     <title>Kenoi's website</title>
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css'); ?>">
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/custom.css'); ?>">
+    <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap-duallistbox.min.css'); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     

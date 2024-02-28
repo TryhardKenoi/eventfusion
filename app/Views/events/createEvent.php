@@ -48,17 +48,20 @@
       </div>
     </div>
 
-    <div class="d-flex">
+    <div class="pt-5">
       <div class="form-group w-100">
-        <label for="exampleInputEmail1">Přidat lidi</label>
+        <label for="exampleInputEmail1"><h5>Přidat lidi</h5></label>
         <select class="form-control" id="users" name="users[]" multiple>
           <?php foreach ($people as $p) : ?>
             <option value="<?= $p->id ?>"><?= $p->first_name . ' ' . $p->last_name ?></option>
           <?php endforeach; ?>
         </select>
       </div>
+    </div>
+
+    <div class="pt-5">
       <div class="form-group w-100">
-        <label for="exampleInputEmail1">Přidat skupiny</label>
+        <label for="exampleInputEmail1"><h5>Přidat skupiny</h5></label>
         <select class="form-control" id="groups" name="groups[]" multiple>
           <?php foreach ($groups as $g) : ?>
             <option value="<?= $g->id ?>"><?= $g->name ?></option>
@@ -75,6 +78,7 @@
   </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
 <script>
   flatpickr("#rozgah_datum", {
     enableTime: false,
@@ -82,6 +86,9 @@
     dateFormat: "Y-m-d",
 
   });
+
+  $('#users').bootstrapDualListbox();
+  $('#groups').bootstrapDualListbox();
 
   function handleCheckboxChange(event) {
     var timeInputs = document.getElementById('timeInputs');
