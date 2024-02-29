@@ -48,9 +48,28 @@
       </div>
     </div>
 
+    <div class="d-flex align-items-center mt-4">
+      <label class="mr-2 mt-2" for="repeat">Opakovat</label>
+      <select class="form-control flex-grow-1" id="repeat" name="repeat">
+        <option value="none">Nikdy</option>
+        <option value="day">Každý den</option>
+        <option value="week">Každý týden</option>
+        <option value="2weeks">Každé dva týdny</option>
+        <option value="month">Každý měsíc</option>
+        <option value="year">Každý rok</option>
+      </select>
+    </div>
+    <div class="align-items-center mt-2" style="display:none;" id="multiplierContainer">
+      <label class="mr-2 mt-2" for="multiplier">Množství opakování</label>
+      <input type="number" id="multiplier" name="multiplier" class="form-control flex-grow-1" min="2" max="20">
+    </div>
+
+
     <div class="pt-5">
       <div class="form-group w-100">
-        <label for="exampleInputEmail1"><h5>Přidat lidi</h5></label>
+        <label for="exampleInputEmail1">
+          <h5>Přidat lidi</h5>
+        </label>
         <select class="form-control" id="users" name="users[]" multiple>
           <?php foreach ($people as $p) : ?>
             <option value="<?= $p->id ?>"><?= $p->first_name . ' ' . $p->last_name ?></option>
@@ -61,7 +80,9 @@
 
     <div class="pt-5">
       <div class="form-group w-100">
-        <label for="exampleInputEmail1"><h5>Přidat skupiny</h5></label>
+        <label for="exampleInputEmail1">
+          <h5>Přidat skupiny</h5>
+        </label>
         <select class="form-control" id="groups" name="groups[]" multiple>
           <?php foreach ($groups as $g) : ?>
             <option value="<?= $g->id ?>"><?= $g->name ?></option>
@@ -79,12 +100,13 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="<?= base_url('assets/js/flatpickr.cs.js') ?>"></script>
 <script>
   flatpickr("#rozgah_datum", {
     enableTime: false,
     mode: "range",
     dateFormat: "Y-m-d",
-
+    locale:'cs'
   });
 
   $('#users').bootstrapDualListbox();
@@ -108,6 +130,21 @@
 
   var allDayCheckbox = document.getElementById('allDayCheckbox');
   allDayCheckbox.addEventListener('change', handleCheckboxChange);
+</script>
+
+<script>
+  document.getElementById('repeat').addEventListener('change', function() {
+    var multiplierContainer = document.getElementById('multiplierContainer');
+    var multiplierInput = document.getElementById('multiplier');
+    if (this.value === 'none') {
+      multiplierContainer.style.display = 'none';
+      multiplierInput.value = ''; // Clear the value if hidden
+      multiplierInput.removeAttribute('required');
+    } else {
+      multiplierContainer.style.display = 'flex';
+      multiplierInput.setAttribute('required', 'required');
+    }
+  });
 </script>
 
 

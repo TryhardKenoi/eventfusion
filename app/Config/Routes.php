@@ -64,6 +64,7 @@ $routes->group('/', ['filter'=> 'auth'],function($routes) {
 	$routes->get('/group/create', 'People::createGroupView');
 	$routes->post('/group/create', 'People::createGroupPost');	
 	$routes->get('/group/(:num)', 'People::getGroupById/$1');
+	$routes->get('/group/delete/(:num)', 'People::deleteGroup/$1');
 	$routes->post('/group/addUser/(:num)', 'People::addUserToGroup/$1');
     $routes->get('/group/user/remove/(:num)/(:num)', 'People::removeUserFromGroup/$1/$2');
 

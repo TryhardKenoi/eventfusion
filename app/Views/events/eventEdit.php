@@ -245,11 +245,11 @@ if (str_contains($zacatek, '00:00:00') && str_contains($konec, '00:00:00')) {
     </div>
     <div class="form-group">
       <label for="start">Začátek eventu</label>
-      <input type="<?= $inputType ?>" class="form-control" disabled id="start" name="start" value="<?= $zacatek; ?>">
+      <input type="<?= $inputType ?>" class="form-control" disabled id="start" name="start" value="<?= $zValue; ?>">
     </div>
     <div class="form-group">
       <label for="end">Konec eventu</label>
-      <input type="<?= $inputType ?>" class="form-control" disabled id="end" name="end" value="<?= $konec; ?>">
+      <input type="<?= $inputType ?>" class="form-control" disabled id="end" name="end" value="<?= $kValue; ?>">
     </div>
     <div>
       <label for="description">Popisek</label>

@@ -129,15 +129,10 @@ class PeopleAdmin extends BaseController
   public function deleteGroup($id)
   {
     $model = new Model();
-    if($model->isInGroup(User::user()->id, $id))
-    {
-      return redirect()->to('/admin/groups')->with('flash-error', 'Nemůžeš odebrat sám sebe!');
-    }else {
-      $model->deleteGroupsUsersByGroupId($id);
-      $model->deleteGroupById($id);
-
-      return redirect()->to('/admin/groups')->with('flash-success', 'Skupina smazana!');
-    }
+    $model->deleteGroupsUsersByGroupId($id);
+    $model->deleteGroupById($id);
+    
+    return redirect()->to('/admin/groups')->with('flash-success', 'Skupina smazana!');
   }
 
   public function editGroup($id){

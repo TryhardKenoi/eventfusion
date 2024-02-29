@@ -13,7 +13,7 @@ class Datum
 
     function splitDate($date)
     {
-        $rozgah = explode(" to ", $date); // Rozdělení pole na začátek a konec rozsahu
+        $rozgah = explode(" do ", $date); // Rozdělení pole na začátek a konec rozsahu
         $data['zacatek_eventu'] = date('Y-m-d', strtotime($rozgah[0])); // Převod začátku rozsahu do formátu pro databázi DATE
 
         if (count($rozgah) > 1) {

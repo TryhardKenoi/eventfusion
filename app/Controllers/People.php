@@ -118,10 +118,10 @@ class People extends BaseController
     if($this->request->getVar('users') != null) {      
       $users =  $this->request->getPost('users');
       if($model->addUserToGroup($id, $users)){
-        return redirect()->to('/group/'.$id);
+        return redirect()->to('/group/'.$id)->with('flash-success','Uživatelé přidáni');
       }
     }else {
-      return redirect()->to('/group/'.$id)->with('flash-error', 'banany');
+      return redirect()->to('/group/'.$id)->with('flash-success', 'Změny přidány úspěšně');
 
     }
   }
@@ -169,12 +169,12 @@ class People extends BaseController
     if (!$this->validate($rules, $errors)) {
       $data['validation'] = $this->validator;
     }else {
-      $identity = $this->request->getPost('email');
+      $identity = str_replace(' ', '', $this->request->getPost('email'));
       $password = $this->request->getPost('password');
-      $email = $this->request->getPost('email');
+      $email = str_replace(' ', '', $this->request->getPost('email'));
       $additional_data = array(
-        'first_name' => $this->request->getPost('first_name'),
-        'last_name' => $this->request->getPost('last_name'),
+        'first_name' => str_replace(' ', '', $this->request->getPost('first_name')),
+        'last_name' => str_replace(' ', '', $this->request->getPost('last_name')),
       );
       $group = array('2'); //Group
   
@@ -196,4 +196,14 @@ class People extends BaseController
         $model->removeUserFromGroup($groupId, $userId);
         return redirect()->to('/group/'.$groupId)->with('flash-success', 'Úspěšně odebráno!');
     }
+
+    public function deleteGroup($id)
+    {
+      $model = new Model();
+      $model->deleteGroupsUsersByGroupId($id);
+      $model->deleteGroupById($id);
+      
+      return redirect()->to('/profile')->with('flash-success', 'Skupina smazána!');
+    }
+
 }

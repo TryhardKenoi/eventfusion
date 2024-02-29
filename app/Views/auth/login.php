@@ -95,7 +95,7 @@
         <div class="wrap-login100">
             <form id="myForm" action="<?= base_url('auth/login'); ?>" class="login100-form validate-form" method="post">
 					<img src="<?= base_url("eventfussion.png"); ?>" alt="logo" class="logo-login">
-          <a href="<?= base_url('/') ?>"><h5 class="login-heading">EventFusion</h5></a>
+          <a class=" text-center" style="color: black;" href="<?= base_url('/') ?>"><h5 class="login-heading">EventFusion</h5></a>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
                     <input type="email" name="identity" id="identity" class="input100" value="<?= set_value('identity')?>">

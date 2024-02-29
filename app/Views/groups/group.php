@@ -9,19 +9,19 @@
         <hr>
       </div>
         <div id="default">
-        <p>Název: <?= $group->name; ?></p>
-        <p>Popisek: <?= $group->description; ?></p>
+        <p>Název: <?= $group->name;?></p>
+        <p>Popisek: <?= $group->description;?></p>
         </div>
     </div>
 
     <div class="container" style="display:none;" id="edit">
         <div class="form-group">
           <label for="name">Název skupiny</label>
-          <input type="text" class="form-control" id="name" name="name" value="<?= $group->name; ?> ">
+          <input type="text" class="form-control" id="name" name="name" value="<?= $group->name;?>">
         </div>
         <div class="form-group">
           <label for="name">Popisek skupiny</label>
-          <input type="text" class="form-control" id="description" name="description" value="<?= $group->description; ?> ">
+          <input type="text" class="form-control" id="description" name="description" value="<?= $group->description; ?>">
         </div>
     </div>
 
@@ -33,13 +33,13 @@
 
    <div class="row">
     <div class="col-12">
-      <h1>Seznam clenu skupiny</h1>
+      <h1>Seznam členů skupiny</h1>
       <table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Jmeno</th>
-            <th scope="col">Přímení</th>
+            <th scope="col">Jméno</th>
+            <th scope="col">Příjmení</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -75,7 +75,12 @@
             <?php endforeach; ?>
         </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="pb-4">
+        <button type="submit" class="btn btn-primary">Odeslat</button>
+        <?php if(\App\Helpers\User::user()->id == $group->owner_id): ?>
+        <a href="<?= base_url('/group/delete/'.$group->id); ?>" class="btn btn-danger">Odebrat event</a>
+        <?php endif; ?>
+        </div>
       </form>
       <?php endif; ?>
     </div>
@@ -84,6 +89,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
 <script>
+  $('#users').bootstrapDualListbox();
         const div1 = document.getElementById('default');
         const div2 = document.getElementById('edit');
         const toggleButton = document.getElementById('editButton');
@@ -96,7 +102,7 @@
             toggleButton.style.display = 'none';
         });
     
-        $('#users').bootstrapDualListbox();
+        
 </script>
 
 <?php $this->endSection(); ?>

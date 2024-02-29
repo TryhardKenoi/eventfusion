@@ -124,7 +124,7 @@ $(document).ready(function() {
 
             //skupiny
             if(event.groups.length > 0) {
-              $('.modal-body3').html("Skupiny: " +event.groups.map((group) => group.name));
+              $('.modal-body3').html("<b>Skupiny: </b>" +event.groups.map((group) => group.name));
                   // eventy.groups[0], eventy.groups[1],
             }else {
               $('.modal-body3').html("");
@@ -132,7 +132,7 @@ $(document).ready(function() {
 
             //uzivatele
             if(event.users.length > 0) {
-              $('.modal-body4').html("Uživatelé: " +event.users.map((user) => user.first_name + user.last_name));
+              $('.modal-body4').html("<b>Uživatelé: </b>" +event.users.map((user) => user.first_name +" " + user.last_name));
                   // eventy.groups[0], eventy.groups[1],
             }else {
               $('.modal-body4').html("");
