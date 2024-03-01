@@ -88,8 +88,8 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script>
 <script>
-  $('#users').bootstrapDualListbox();
         const div1 = document.getElementById('default');
         const div2 = document.getElementById('edit');
         const toggleButton = document.getElementById('editButton');

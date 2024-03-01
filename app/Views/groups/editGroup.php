@@ -30,8 +30,8 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Jmeno</th>
-              <th scope="col">Přímení</th>
+              <th scope="col">Jméno</th>
+              <th scope="col">Příjmení</th>
               <th></th>
             </tr>
           </thead>
@@ -70,25 +70,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#users').bootstrapDualListbox({
-      nonSelectedListLabel: 'Nezvolené',  // Text pro nezvolené položky
-      selectedListLabel: 'Zvolené',  // Text pro zvolené položky
-      preserveSelectionOnMove: 'přesunuté',  // Zachování výběru při přesunu
-      moveOnSelect: false,  // Přesunout při výběru
-      filterTextClear: 'zobrazit vše',  // Text pro tlačítko "Zobrazit vše"
-      filterPlaceHolder: 'Filtr',  // Placeholder pro filtr
-      moveSelectedLabel: 'Přesunout zvolené',  // Text pro tlačítko "Přesunout zvolené"
-      moveAllLabel: 'Přesunout vše',  // Text pro tlačítko "Přesunout vše"
-      removeSelectedLabel: 'Odebrat zvolené',  // Text pro tlačítko "Odebrat zvolené"
-      removeAllLabel: 'Odebrat vše',  // Text pro tlačítko "Odebrat vše"
-      infoText: 'Zobrazuje všechny {0}',  // Text pro "Showing all {0}"
-      infoTextEmpty: 'Prázdný seznam'  // Text pro prázdný seznam
-      
-    });
-  });
-  
-</script>
+<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script>
 
 <?php $this->endSection(); ?>

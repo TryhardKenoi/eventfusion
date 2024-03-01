@@ -45,6 +45,8 @@ $routes->group('/', ['filter'=> 'auth'],function($routes) {
 	//$routes->get('/events','Home::getEvents'); //debug - všechny eventy v jsonu
 	$routes->get('/event/(:num)','Event::getEventByID/$1');
 
+	$routes->get('event/info/(:num)', 'Event::getEventInfo/$1');
+
 	$routes->get('/event/edit/(:num)', 'Event::editEventView/$1');
 	$routes->post('/event/edit/(:num)', 'Event::editEventPost/$1');
 

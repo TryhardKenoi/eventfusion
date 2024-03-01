@@ -139,12 +139,9 @@
     <button type="submit" id="submitButton" class="btn btn-primary mb-5" name="button">Uložit změny</button>
 </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="<?= base_url('assets/js/leaflat.js'); ?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
 
-<script> 
-  $('#users').bootstrapDualListbox();
-  $('#groups').bootstrapDualListbox();
-</script>
+<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script> 
 
 <?= $this->endSection(); ?>

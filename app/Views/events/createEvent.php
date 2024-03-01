@@ -30,8 +30,8 @@
       <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
     </div>
     <div class="mb-3">
-      <label for="rozgah_datum" class="form-label">Rozsah eventu<p class="d-inline" style="color: red;">*</p></label>
-      <input type="text" required class="form-control" id="rozgah_datum" name="rozgah_datum" placeholder="Vyberte rozsah datumů">
+      <label for="rozgah_datum" class="form-label">Datum konání<p class="d-inline" style="color: red;">*</p></label>
+      <input type="text" required class="form-control" id="rozgah_datum" name="rozgah_datum" placeholder="Vyberte začátek a konec události">
     </div>
     <div>
       <label for="allDayCheckbox">Celý den: </label>
@@ -60,8 +60,8 @@
       </select>
     </div>
     <div class="align-items-center mt-2" style="display:none;" id="multiplierContainer">
-      <label class="mr-2 mt-2" for="multiplier">Množství opakování</label>
-      <input type="number" id="multiplier" name="multiplier" class="form-control flex-grow-1" min="2" max="20">
+      <label class="mr-2 mt-2 d-inline-block" for="multiplier">Množství opakování</label>
+      <input type="number" id="multiplier" name="multiplier" class="form-control flex-grow-1 d-inline-block" min="2" max="20">
     </div>
 
 
@@ -100,6 +100,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
+<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script>
 <script src="<?= base_url('assets/js/flatpickr.cs.js') ?>"></script>
 <script>
   flatpickr("#rozgah_datum", {
@@ -108,10 +109,6 @@
     dateFormat: "Y-m-d",
     locale:'cs'
   });
-
-  $('#users').bootstrapDualListbox();
-  $('#groups').bootstrapDualListbox();
-
   function handleCheckboxChange(event) {
     var timeInputs = document.getElementById('timeInputs');
     var sTime = document.getElementById('startTime');
@@ -146,6 +143,5 @@
     }
   });
 </script>
-
 
 <?= $this->endSection(); ?>

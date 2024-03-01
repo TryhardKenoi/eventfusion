@@ -308,4 +308,20 @@ class Event extends BaseController
       return redirect()->to('/event/edit/'.$eventId)->with('flash-error', 'Odebrání neuspěšné!');
     }
   }
+
+  public function getEventInfo($id){
+    $model = new Model();
+    $chatModel = new ChatModel();
+    $e = $model->getEventById($id);
+    $chatHistory = $chatModel->where('event_id', $id)->findAll();
+    $data['event'] = $e;
+    $data['users'] = $model->getUsersFromEventByEventId($id);
+    $data['groups'] = $model->getGroupsFromEventByEventId($id);
+    $data['people'] = $model->getUsersToAddFiltered($id);
+    $data['org'] = $model->getRolesToAddFiltered($id);
+    $data['chat'] = $chatHistory;
+
+    return view('events/eventInfo', $data); 
+  }
+
 }

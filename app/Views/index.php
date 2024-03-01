@@ -118,7 +118,7 @@ $(document).ready(function() {
             }
             $('.modal-body').html("Začátek eventu: " +formattedStDate);
             $('.modal-body2').html("Konec eventu: " +formattedEnDate);
-            $('#moreButton').attr('href', '<?= base_url('/event/edit')?>' + '/' +event.id);
+            $('#moreButton').attr('href', '<?= base_url('/event/info')?>' + '/' +event.id);
             $('#chatButton').attr('href', '<?= base_url('/chat')?>' + '/' +event.id);
 
 
