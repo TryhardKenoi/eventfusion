@@ -11,6 +11,7 @@ $kDate = $k->format('Y-m-d');
 $zDatetime = $z->format('Y-m-d H:i:s');
 $kDatetime = $k->format('Y-m-d H:i:s');
 
+
 if (str_contains($zacatek, '00:00:00') && str_contains($konec, '00:00:00')) {
   $inputType = 'date';
   $checked = 'checked';
@@ -238,15 +239,6 @@ $curentUserID = \App\Helpers\User::user()->id;
   const eventId = '<?= $event->creator_id; ?>';
   const isOwner = (currentUserId == eventId);
 
-  if (isOwner) {
-    document.getElementById('owner').style.display = 'block';
-    document.getElementById('user').style.display = 'none';
-  } else {
-    document.getElementById('owner').style.display = 'none';
-    document.getElementById('user').style.display = 'block';
-  }
-
-
   var allDayCheckbox = document.getElementById('allDayCheckbox');
   allDayCheckbox.addEventListener('change', handleCheckboxChange);
 
@@ -261,11 +253,12 @@ $curentUserID = \App\Helpers\User::user()->id;
 
       start.setAttribute('value', '<?= $zDatetime; ?>');
       end.setAttribute('value', '<?= $kDatetime; ?>');
+      
 
     } else {
       start.setAttribute('type', 'date');
       end.setAttribute('type', 'date');
-
+      
       start.setAttribute('value', '<?= $zDate; ?>');
       end.setAttribute('value', '<?= $kDate; ?>');
     }

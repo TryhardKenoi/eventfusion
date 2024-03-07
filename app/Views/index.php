@@ -66,6 +66,7 @@ $(document).ready(function() {
 
   var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
+    schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       timeZone: 'Europe/Prague',
       lang: 'CZ',
       height: 800,

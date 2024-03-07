@@ -35,7 +35,6 @@ $routes->setAutoRoute(true);
 
 //Routes - veřejné trasy
 $routes->get('/', 'Home::index');
-$routes->get('/multiselect', 'Home::multiselect');
 
 //Routes - Trasy s oprávněním přihlášeného uživatele
 $routes->group('/', ['filter'=> 'auth'],function($routes) {

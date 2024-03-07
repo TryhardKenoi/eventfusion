@@ -279,7 +279,7 @@ class Event extends BaseController
     
 
     $model->update($eventId, $prep);
-    return redirect()->to('/event/edit/'.$eventId)->with('flash-success', 'Změna úspěšná!');;
+    return redirect()->to('/event/info/'.$eventId)->with('flash-success', 'Změna úspěšná!');;
 
   }
 
