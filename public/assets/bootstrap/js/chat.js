@@ -13,7 +13,9 @@ $(document).ready(() => {
                   return;
               }
               msgList.push(msg); 
-              const messageItem = "<li class='my-4 d-flex'><div class='" + (userId == msg.user_id ? 'ml-auto' : 'mr-auto') + " d-block text-break'><strong>" + msg.first_name + " " + msg.last_name + ":</strong> " + msg.message + "</div></li>";
+              const messageTime = new Date(msg.time);
+              const formattedTime = messageTime.toLocaleString([], { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+              const messageItem = "<li class='my-4 d-flex flex-column align-items-" + (userId == msg.user_id ? 'end' : 'start') + "'><span class='text-muted'>" + formattedTime + "</span><div><strong>" + msg.first_name + " " + msg.last_name + ":</strong> " + msg.message + "</div></li>";
               chat.append(messageItem);
               
               // Posunout scrollování na maximální hodnotu

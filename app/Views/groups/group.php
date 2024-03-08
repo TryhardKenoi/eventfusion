@@ -78,7 +78,7 @@
         <div class="pb-4">
         <button type="submit" class="btn btn-primary">Odeslat</button>
         <?php if(\App\Helpers\User::user()->id == $group->owner_id): ?>
-        <a href="<?= base_url('/group/delete/'.$group->id); ?>" class="btn btn-danger">Odebrat event</a>
+        <a href="<?= base_url('/group/delete/'.$group->id); ?>" class="btn btn-danger">Smazat skupinu</a>
         <?php endif; ?>
         </div>
       </form>
