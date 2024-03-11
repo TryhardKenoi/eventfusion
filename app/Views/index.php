@@ -83,6 +83,7 @@ $(document).ready(function() {
         day:      'den',
         list:     'seznam',
       },
+      allDayText:'Celý den',
       customButtons: {
             myCustomButton: {
                 text: '+',

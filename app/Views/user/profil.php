@@ -35,7 +35,7 @@
                   <?php endforeach; ?>
                 </ul>
                 <div class="col-sm-12 pt-2 pb-2">
-                      <a class="btn btn-info " target="__blank" href="<?= base_url('group/create'); ?>">Vytvořit</a>
+                      <a class="btn btn-info " target="" href="<?= base_url('group/create'); ?>">Vytvořit</a>
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
                   </div>
                   <hr>
                     <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="<?= base_url('profile/details/'. \App\Helpers\User::user()->id); ?>">Upravit</a>
+                      <a class="btn btn-info " target="" href="<?= base_url('profile/details/'. \App\Helpers\User::user()->id); ?>">Upravit</a>
                     </div>
                   </div>
                 </div>
