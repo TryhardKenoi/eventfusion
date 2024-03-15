@@ -5,6 +5,9 @@ body,html {
     text-align: left;
 }
 
+a{
+    color:black;
+}
 
 .error{
   color: red !important;
