@@ -4,9 +4,6 @@ namespace App\Controllers;
 
 use App\Helpers\User;
 
-use App\Models\GroupModel;
-use App\Models\Model;
-use App\Models\UserModel;
 use App\Libraries\Datum;
 
 class PeopleAdmin extends BaseController
@@ -22,28 +19,23 @@ class PeopleAdmin extends BaseController
 
   public function getUsers()
   {
-    $model = new Model();
-
-    $data['users']= $model->getUsersAll();
+    $data['users']= $this->userModel->getUsersAll();
     return view('user/userList', $data);
   }
 
   public function deleteUser($id){
-    $model = new Model();
-    $model->deleteUserById($id);
+    $this->userModel->deleteUserById($id);
     return redirect()->to('/admin/users/')->with('flash-success', 'Uživatel smazán!');
   }
 
   public function editUserView($id){
-    $model = new Model();
-    $data['user'] = $model->getUserById($id);
+    $data['user'] = $this->userModel->getUserById($id);
     return view('user/editUser', $data);
   }
 
   public function editUserPost($id){
     $data = $this->request->getPost();
-    $model = new UserModel();
-    $userDB = $model->find($id);
+    $userDB = $this->userModel->find($id);
 
     if(!empty($data['password'])){
       $password = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -60,7 +52,7 @@ class PeopleAdmin extends BaseController
       'password' => $password,
       'company' =>$data['company']
     ];
-    $model->update($id, $prep);
+    $this->userModel->update($id, $prep);
     return redirect()->to('admin/user/edit/'.$id)->with('flash-success', 'Údaje úspěšně změněny');
   }
 
@@ -78,7 +70,7 @@ class PeopleAdmin extends BaseController
       'first_name' => 'required',
       'last_name' => 'required',
       'password' => 'required',
-      'password_confirm' => 'required|matches[password]'
+      'password-again' => 'required|matches[password]'
     ];
     //customizovana validace
     $errors = [
@@ -95,7 +87,7 @@ class PeopleAdmin extends BaseController
       'password' =>  [
         'required' => 'Musíš vyplnit heslo!',
       ],
-      'password_confirm' =>  [
+      'password-again' =>  [
         'required' => 'Musíš vyplnit heslo kontrola!',
         'matches' => 'Hesla se musí shodovat!'
       ],
@@ -120,42 +112,37 @@ class PeopleAdmin extends BaseController
 
   public function getGroups()
   {
-    $model = new Model();
-    $data['groups'] = $model->getGroups();
+    $data['groups'] = $this->groupModel->getGroups();
 
     return view('groups/groupList', $data);
   }
 
   public function deleteGroup($id)
   {
-    $model = new Model();
-    $model->deleteGroupsUsersByGroupId($id);
-    $model->deleteGroupById($id);
+    $this->userGroupModel->deleteGroupsUsersByGroupId($id);
+    $this->groupModel->deleteGroupById($id);
     
     return redirect()->to('/admin/groups')->with('flash-success', 'Skupina smazana!');
   }
 
   public function editGroup($id){
-    $model = new Model();
-    $data['group'] = $model->getGroupById($id);
-    $data['people'] = $model->getUsers($id);
-    $data['users'] = $model->getUsersByGroupId($id);
+    $data['group'] = $this->groupModel->getGroupById($id);
+    $data['people'] = $this->userModel->getUsers($id);
+    $data['users'] = $this->userModel->getUsersByGroupId($id);
     return view ('groups/editgroup', $data);
   }
 
   public function addUserToGroup($id){
-    $model = new Model();
-    $gModel = new GroupModel();
     $data = $this->request->getPost();
     $prep = [
         'name' => $data['name'],
         'description' => $data['description']
     ];
-    $gModel->update($id, $prep);
+    $this->groupModel->update($id, $prep);
       
     if($this->request->getVar('users') != null) {      
       $users =  $this->request->getPost('users');
-      if($model->addUserToGroup($id, $users)){
+      if($this->userGroupModel->addUserToGroup($id, $users)){
         return redirect()->to('/admin/group/edit/'.$id);
       }
     }
@@ -164,13 +151,11 @@ class PeopleAdmin extends BaseController
 
   public function removeUserFromGroup($groupId, $userId)
   {
-      $model = new Model();
-
     if($userId == User::user()->id) {        
       return redirect()->to('/admin/group/edit/'.$groupId)->with('flash-error', 'Nemuze odebrat sam sebe!');
     }
 
-    $model->removeUserFromGroup($groupId, $userId);
+    $this->userGroupModel->removeUserFromGroup($groupId, $userId);
     return redirect()->to('/admin/group/edit/'.$groupId)->with('Fsuccess', 'Uspesne odebrano!');
   }
 

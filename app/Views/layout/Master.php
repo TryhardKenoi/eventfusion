@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kenoi's website</title>
+    <title>EventFusion</title>
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css'); ?>">
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/custom.css'); ?>">
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap-duallistbox.min.css'); ?>">
