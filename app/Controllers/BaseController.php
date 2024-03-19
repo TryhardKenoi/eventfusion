@@ -2,8 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\ChatMessageModel;
+use App\Models\ChatModel;
 use App\Models\EventModel;
+use App\Models\EventyGroupModel;
+use App\Models\EventyUserModel;
+use App\Models\GroupModel;
 use App\Models\SiteSettingsModel;
+use App\Models\UserGroupModel;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -44,10 +50,20 @@ class BaseController extends Controller
     protected $helpers = [];
     protected SiteSettingsModel $model;
 
+    /**
+     * Promene modelu
+    */
+    
     protected $siteSettings;
-    protected $eventModel;
     protected $userModel;
-
+    protected $chatModel;
+    protected $chatMessageModel;
+    protected $eventModel;
+    protected $eventUserModel;
+    protected $groupModel;
+    protected $userGroupModel;
+    protected $eventGroupModel;
+    
 
     /**
      * Constructor.
@@ -65,6 +81,15 @@ class BaseController extends Controller
         
         $this->eventModel = new EventModel();
         $this->userModel = new UserModel();
+        $this->userModel = new UserModel();
+        $this->chatModel = new ChatModel();
+        $this->chatMessageModel = new ChatMessageModel();
+        $this->eventModel = new EventModel();
+        $this->eventGroupModel = new EventyGroupModel();
+        $this->eventUserModel = new EventyUserModel();
+        $this->groupModel = new GroupModel();
+        $this->userGroupModel = new UserGroupModel();
+        $this->eventGroupModel = new EventyGroupModel();
 
         // E.g.: $this->session = \Config\Services::session();
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <title><?= $settings['site_name']; ?></title>
+    <title>EventFusion</title>
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/custom.css'); ?>">
     <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/bootstrap-duallistbox.min.css'); ?>">

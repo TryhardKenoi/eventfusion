@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-
-use App\Models\GetEvent;
 use App\Libraries\Datum;
 
 
@@ -19,9 +17,13 @@ class Home extends BaseController
   }
   public function index()
   {
+<<<<<<< HEAD
     $model = new GetEvent();
     $events = $model->getDataWithID();
 
+=======
+    $events = $this->eventModel->getDataWithID();
+>>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('index', 
       [
         'events' => $events,
@@ -33,8 +35,7 @@ class Home extends BaseController
   
   public function getEvents()
   {
-    $model = new GetEvent();
-    $events = $model->getDataWithID();
+    $events = $this->eventModel->getDataWithID();
     $events_data = [];
 
     foreach ($events as $event) {

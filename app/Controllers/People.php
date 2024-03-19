@@ -3,11 +3,8 @@
 namespace App\Controllers;
 
 use App\Helpers\User;
-use App\Models\GroupModel;
-use App\Models\Model;
-use App\Models\UserModel;
 use App\Libraries\Datum;
-use PHPUnit\TextUI\XmlConfiguration\Group;
+
 
 class People extends BaseController
 {
@@ -40,17 +37,20 @@ class People extends BaseController
   }
 
   public function changeDetailsView($id){
+<<<<<<< HEAD
     $model = new Model();
     $data['user'] = $model->getUserById($id);
     $data['settings'] = $this->siteSettings;
 
+=======
+    $data['user'] = $this->userModel->getUserById($id);
+>>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('user/changeDetails', $data);
   }
 
   public function changeDetailsPost($id){
     $data = $this->request->getPost();
-    $model = new UserModel();
-    $userDB = $model->find($id);
+    $userDB = $this->userModel->find($id);
 
     $password = $userDB->password;
     $data['settings'] = $this->siteSettings;
@@ -71,7 +71,7 @@ class People extends BaseController
       'phone' => $data['phone'],
       'password' => $password
     ];
-    $model->update($id, $prep);
+    $this->userModel->update($id, $prep);
     return redirect()->to('profile/details/'.$id)->with('flash-success', 'Údaje úspěšně změněny');
 
   }
@@ -102,29 +102,33 @@ class People extends BaseController
   }
 
   public function getGroupById($id){
+<<<<<<< HEAD
     $model = new Model();
     $data['group'] = $model->getGroupById($id);
     $data['people'] = $model->getUsers($id);
     $data['users'] = $model->getUsersByGroupId($id);
     $data['settings'] = $this->siteSettings;
 
+=======
+    $data['group'] = $this->groupModel->getGroupById($id);
+    $data['people'] = $this->userModel->getUsers($id);
+    $data['users'] = $this->userModel->getUsersByGroupId($id);
+>>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('groups/group', $data);
   }
 
   public function addUserToGroup($id){
-    $model = new Model();
-    $gModel = new GroupModel();
     $data = $this->request->getPost();
     $prep = [
         'name' => $data['name'],
         'description' => $data['description']
     ];
     if($data){
-        $gModel->update($id, $prep);
+        $this->groupModel->update($id, $prep);
     }
     if($this->request->getVar('users') != null) {      
       $users =  $this->request->getPost('users');
-      if($model->addUserToGroup($id, $users)){
+      if($this->userGroupModel->addUserToGroup($id, $users)){
         return redirect()->to('/group/'.$id)->with('flash-success','Uživatelé přidáni');
       }
     }else {
@@ -198,25 +202,34 @@ class People extends BaseController
 
     public function removeUserFromGroup($groupId, $userId)
     {
+<<<<<<< HEAD
         $model = new Model();
         $data['settings'] = $this->siteSettings;
 
 
+=======
+>>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
         if($userId == User::user()->id) {
             return redirect()->to('/group/'.$groupId)->with('flash-error', 'Nemůžete odebrat sám sebe!');
         }
 
-        $model->removeUserFromGroup($groupId, $userId);
+        $this->userGroupModel->removeUserFromGroup($groupId, $userId);
         return redirect()->to('/group/'.$groupId)->with('flash-success', 'Úspěšně odebráno!');
     }
 
     public function deleteGroup($id)
     {
+<<<<<<< HEAD
       $model = new Model();
       $model->deleteGroupsUsersByGroupId($id);
       $model->deleteGroupById($id);
       $data['settings'] = $this->siteSettings;
 
+=======
+      $this->userGroupModel->deleteGroupsUsersByGroupId($id);
+      $this->groupModel->deleteGroupById($id);
+      
+>>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
       return redirect()->to('/profile')->with('flash-success', 'Skupina smazána!');
     }
 
