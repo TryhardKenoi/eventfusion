@@ -15,48 +15,20 @@ class EventAdmin extends BaseController
     $this->db = \Config\Database::connect();
   }
 
-<<<<<<< HEAD
-  public function getAllEvents()
-  {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new EventModel();
-    $data['event'] = $model->findAll();
-=======
   public function getAllEvents(){
     $data['event'] = $this->eventModel->findAll();
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
 
     return view('events/eventList', $data);
   }
 
-
-<<<<<<< HEAD
-  public function deleteEvent($id)
-  {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new EventModel();
-    $model->deleteEventAndRelated($id);
-=======
   public function deleteEvent($id){
     $this->eventModel->deleteEventAndRelated($id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
 
     return redirect()->to('/admin/events')->with('flash-success', 'Event smazán!');
   }
-
-  public function editEventView($id)
-  {
-    $data['settings'] = $this->siteSettings;
-
-<<<<<<< HEAD
-    $model = new Model();
-    $e = $model->getEventById($id);
-=======
-public function editEventView($id){
+  
+  public function editEventView($id){
     $e = $this->eventModel->getEventById($id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     $data['event'] = $e;
     $data['users'] = $this->userModel->getUsersFromEventByEventId($id);
     $data['groups'] = $this->groupModel->getGroupsFromEventByEventId($id);
@@ -71,16 +43,7 @@ public function editEventView($id){
     $data['settings'] = $this->siteSettings;
 
     $data = $this->request->getPost();
-<<<<<<< HEAD
-    $model = new EventModel();
 
-    $euModel = new EventyUserModel();
-    $egModel = new EventyGroupModel();
-
-
-=======
-    
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     $userList = $this->request->getPost('users');
     $groupList = $this->request->getPost('groups');
 
@@ -94,18 +57,6 @@ public function editEventView($id){
       'longtitute' => $data['longtitute']
     ];
 
-<<<<<<< HEAD
-
-    if ($userList != null) {
-      foreach ($userList as $id) {
-        $euModel->insert(['user_id' => $id, 'event_id' => $eventId]);
-      }
-    }
-
-    if ($groupList != null) {
-      foreach ($groupList as $id) {
-        $egModel->insert(['group_id' => $id, 'event_id' => $eventId]);
-=======
     
     if($userList != null) {
       foreach($userList as $id){
@@ -116,28 +67,9 @@ public function editEventView($id){
     if($groupList != null) {
       foreach($groupList as $id){
         $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
       }
     }
 
-
-<<<<<<< HEAD
-    $model->update($eventId, $prep);
-    return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Změna úspěšná!');
-  }
-
-
-  public function removeUserFromEvent($eventUserID, $eventId)
-  {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new Model();
-
-    if ($model->removeUserFromEvent($eventUserID)) {
-      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Úspěšně odebráno!');
-    } else {
-      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-error', 'Odebrání neuspěšné!');
-=======
     $this->eventModel->update($eventId, $prep);
     return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-success', 'Změna úspěšná!');
   }
@@ -156,7 +88,6 @@ public function editEventView($id){
       return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-success', 'Úspěšně odebráno!');
     }else{
       return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-error', 'Odebrání neuspěšné!');
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     }
   }
 
