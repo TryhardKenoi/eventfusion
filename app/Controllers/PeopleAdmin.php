@@ -19,41 +19,19 @@ class PeopleAdmin extends BaseController
 
   public function getUsers()
   {
-<<<<<<< HEAD
-    $model = new Model();
-
-    $data['users'] = $model->getUsersAll();
-    $data['settings'] = $this->siteSettings;
-
+    $data['users'] = $this->userModel->getUsersAll();
     return view('user/userList', $data);
   }
 
   public function deleteUser($id)
   {
-    $model = new Model();
-    $model->deleteUserById($id);
+    $this->userModel->deleteUserById($id);
     return redirect()->to('/admin/users/')->with('flash-success', 'Uživatel smazán!');
   }
 
   public function editUserView($id)
   {
-    $model = new Model();
-    $data['user'] = $model->getUserById($id);
-    $data['settings'] = $this->siteSettings;
-
-=======
-    $data['users']= $this->userModel->getUsersAll();
-    return view('user/userList', $data);
-  }
-
-  public function deleteUser($id){
-    $this->userModel->deleteUserById($id);
-    return redirect()->to('/admin/users/')->with('flash-success', 'Uživatel smazán!');
-  }
-
-  public function editUserView($id){
     $data['user'] = $this->userModel->getUserById($id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('user/editUser', $data);
   }
 
@@ -79,14 +57,8 @@ class PeopleAdmin extends BaseController
       'password' => $password,
       'company' => $data['company']
     ];
-<<<<<<< HEAD
-    $model->update($id, $prep);
-
-    return redirect()->to('admin/user/edit/' . $id)->with('flash-success', 'Údaje úspěšně změněny');
-=======
     $this->userModel->update($id, $prep);
-    return redirect()->to('admin/user/edit/'.$id)->with('flash-success', 'Údaje úspěšně změněny');
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
+    return redirect()->to('admin/user/edit/' . $id)->with('flash-success', 'Údaje úspěšně změněny');
   }
 
   public function registerUserView()
@@ -151,83 +123,41 @@ class PeopleAdmin extends BaseController
 
   public function getGroups()
   {
-<<<<<<< HEAD
-    $data['settings'] = $this->siteSettings;
 
-    $model = new Model();
-    $data['groups'] = $model->getGroups();
-=======
     $data['groups'] = $this->groupModel->getGroups();
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
 
     return view('groups/groupList', $data);
   }
 
   public function deleteGroup($id)
   {
-<<<<<<< HEAD
-    $data['settings'] = $this->siteSettings;
-
-    $model = new Model();
-    $model->deleteGroupsUsersByGroupId($id);
-    $model->deleteGroupById($id);
+    $this->userGroupModel->deleteGroupsUsersByGroupId($id);
+    $this->groupModel->deleteGroupById($id);
 
     return redirect()->to('/admin/groups')->with('flash-success', 'Skupina smazana!');
   }
 
   public function editGroup($id)
   {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new Model();
-    $data['group'] = $model->getGroupById($id);
-    $data['people'] = $model->getUsers($id);
-    $data['users'] = $model->getUsersByGroupId($id);
-    return view('groups/editGroup', $data);
+    $data['group'] = $this->groupModel->getGroupById($id);
+    $data['people'] = $this->userModel->getUsers($id);
+    $data['users'] = $this->userModel->getUsersByGroupId($id);
+    return view('groups/editgroup', $data);
   }
 
   public function addUserToGroup($id)
   {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new Model();
-    $gModel = new GroupModel();
-=======
-    $this->userGroupModel->deleteGroupsUsersByGroupId($id);
-    $this->groupModel->deleteGroupById($id);
-    
-    return redirect()->to('/admin/groups')->with('flash-success', 'Skupina smazana!');
-  }
-
-  public function editGroup($id){
-    $data['group'] = $this->groupModel->getGroupById($id);
-    $data['people'] = $this->userModel->getUsers($id);
-    $data['users'] = $this->userModel->getUsersByGroupId($id);
-    return view ('groups/editgroup', $data);
-  }
-
-  public function addUserToGroup($id){
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     $data = $this->request->getPost();
     $prep = [
       'name' => $data['name'],
       'description' => $data['description']
     ];
-<<<<<<< HEAD
-    $gModel->update($id, $prep);
+    $this->groupModel->update($id, $prep);
 
     if ($this->request->getVar('users') != null) {
       $users =  $this->request->getPost('users');
-      if ($model->addUserToGroup($id, $users)) {
+      if ($this->userGroupModel->addUserToGroup($id, $users)) {
         return redirect()->to('/admin/group/edit/' . $id);
-=======
-    $this->groupModel->update($id, $prep);
-      
-    if($this->request->getVar('users') != null) {      
-      $users =  $this->request->getPost('users');
-      if($this->userGroupModel->addUserToGroup($id, $users)){
-        return redirect()->to('/admin/group/edit/'.$id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
       }
     }
     return redirect()->to('/admin/group/edit/' . $id);
@@ -235,23 +165,12 @@ class PeopleAdmin extends BaseController
 
   public function removeUserFromGroup($groupId, $userId)
   {
-<<<<<<< HEAD
-    $model = new Model();
-
     if ($userId == User::user()->id) {
       return redirect()->to('/admin/group/edit/' . $groupId)->with('flash-error', 'Nemuze odebrat sam sebe!');
     }
 
-    $model->removeUserFromGroup($groupId, $userId);
-    return redirect()->to('/admin/group/edit/' . $groupId)->with('Fsuccess', 'Uspesne odebrano!');
-=======
-    if($userId == User::user()->id) {        
-      return redirect()->to('/admin/group/edit/'.$groupId)->with('flash-error', 'Nemuze odebrat sam sebe!');
-    }
-
     $this->userGroupModel->removeUserFromGroup($groupId, $userId);
-    return redirect()->to('/admin/group/edit/'.$groupId)->with('Fsuccess', 'Uspesne odebrano!');
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
+    return redirect()->to('/admin/group/edit/' . $groupId)->with('Fsuccess', 'Uspesne odebrano!');
   }
 
   public function createGroupView()

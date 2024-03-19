@@ -23,11 +23,11 @@ class People extends BaseController
     $id = \App\Helpers\User::user()->id;
     $user_groups = $this->ionAuth->getUsersGroups($id)->getResult();
     $groups = array();
-    foreach($user_groups as $group){
-        if($group->id == 1 || $group->id == 2){
-          continue;
-        }
-        $groups[] = $group;
+    foreach ($user_groups as $group) {
+      if ($group->id == 1 || $group->id == 2) {
+        continue;
+      }
+      $groups[] = $group;
     }
 
     $data['user_groups'] = $groups;
@@ -36,19 +36,14 @@ class People extends BaseController
     return view('user/profil', $data);
   }
 
-  public function changeDetailsView($id){
-<<<<<<< HEAD
-    $model = new Model();
-    $data['user'] = $model->getUserById($id);
-    $data['settings'] = $this->siteSettings;
-
-=======
+  public function changeDetailsView($id)
+  {
     $data['user'] = $this->userModel->getUserById($id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('user/changeDetails', $data);
   }
 
-  public function changeDetailsPost($id){
+  public function changeDetailsPost($id)
+  {
     $data = $this->request->getPost();
     $userDB = $this->userModel->find($id);
 
@@ -56,11 +51,11 @@ class People extends BaseController
     $data['settings'] = $this->siteSettings;
 
 
-    if(!empty($data['password']) && !empty($data['old_password']) && !empty($data['password-again'])){
-      if(password_verify($data['old-password'], $userDB->password)){
+    if (!empty($data['password']) && !empty($data['old_password']) && !empty($data['password-again'])) {
+      if (password_verify($data['old-password'], $userDB->password)) {
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
-      }else{
-        return redirect()->to('profile/details/'.$id)->with('flash-error', 'Hesla se neshodují!');
+      } else {
+        return redirect()->to('profile/details/' . $id)->with('flash-error', 'Hesla se neshodují!');
       }
     }
 
@@ -72,25 +67,26 @@ class People extends BaseController
       'password' => $password
     ];
     $this->userModel->update($id, $prep);
-    return redirect()->to('profile/details/'.$id)->with('flash-success', 'Údaje úspěšně změněny');
-
+    return redirect()->to('profile/details/' . $id)->with('flash-success', 'Údaje úspěšně změněny');
   }
 
-  public function createGroupView(){
+  public function createGroupView()
+  {
     return view('groups/createGroup');
   }
 
-  public function createGroupPost(){
+  public function createGroupPost()
+  {
     $idU = \App\Helpers\User::user()->id;
 
     $name = $this->request->getPost('name');
-    $description = $this->request->getPost('description'); 
+    $description = $this->request->getPost('description');
     $group = $this->ionAuth->createGroup($name, $description);
 
 
-    if(!$group){
+    if (!$group) {
       return redirect()->to('/profile')->with('flash-error', 'Skupina již existuje');
-    }else{
+    } else {
       $this->ionAuth->addToGroup($group, $idU);
       $this->ionAuth->updateGroup($group, $name, array(
         'owner_id' => $idU
@@ -101,45 +97,38 @@ class People extends BaseController
     return redirect()->to('/profile');
   }
 
-  public function getGroupById($id){
-<<<<<<< HEAD
-    $model = new Model();
-    $data['group'] = $model->getGroupById($id);
-    $data['people'] = $model->getUsers($id);
-    $data['users'] = $model->getUsersByGroupId($id);
-    $data['settings'] = $this->siteSettings;
-
-=======
+  public function getGroupById($id)
+  {
     $data['group'] = $this->groupModel->getGroupById($id);
     $data['people'] = $this->userModel->getUsers($id);
     $data['users'] = $this->userModel->getUsersByGroupId($id);
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
     return view('groups/group', $data);
   }
 
-  public function addUserToGroup($id){
+  public function addUserToGroup($id)
+  {
     $data = $this->request->getPost();
     $prep = [
-        'name' => $data['name'],
-        'description' => $data['description']
+      'name' => $data['name'],
+      'description' => $data['description']
     ];
-    if($data){
-        $this->groupModel->update($id, $prep);
+    if ($data) {
+      $this->groupModel->update($id, $prep);
     }
-    if($this->request->getVar('users') != null) {      
+    if ($this->request->getVar('users') != null) {
       $users =  $this->request->getPost('users');
-      if($this->userGroupModel->addUserToGroup($id, $users)){
-        return redirect()->to('/group/'.$id)->with('flash-success','Uživatelé přidáni');
+      if ($this->userGroupModel->addUserToGroup($id, $users)) {
+        return redirect()->to('/group/' . $id)->with('flash-success', 'Uživatelé přidáni');
       }
-    }else {
-      return redirect()->to('/group/'.$id)->with('flash-success', 'Změny přidány úspěšně');
-
+    } else {
+      return redirect()->to('/group/' . $id)->with('flash-success', 'Změny přidány úspěšně');
     }
   }
 
 
-  public function registerView(){
-    
+  public function registerView()
+  {
+
     helper('form');
     $data['settings'] = $this->siteSettings;
 
@@ -181,7 +170,7 @@ class People extends BaseController
     //pokud neni validace do prazdneho arraye pridej validacni errory
     if (!$this->validate($rules, $errors)) {
       $data['validation'] = $this->validator;
-    }else {
+    } else {
       $identity = str_replace(' ', '', $this->request->getPost('email'));
       $password = $this->request->getPost('password');
       $email = str_replace(' ', '', $this->request->getPost('email'));
@@ -190,47 +179,31 @@ class People extends BaseController
         'last_name' => str_replace(' ', '', $this->request->getPost('last_name')),
       );
       $group = array('2'); //Group
-  
+
       $this->ionAuth->register($identity, $password, $email, $additional_data, $group);
       return redirect()->to('/auth/login');
     }
-    
+
     $data['settings'] = $this->siteSettings;
 
     return view('auth/register', $data);
   }
 
-    public function removeUserFromGroup($groupId, $userId)
-    {
-<<<<<<< HEAD
-        $model = new Model();
-        $data['settings'] = $this->siteSettings;
-
-
-=======
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
-        if($userId == User::user()->id) {
-            return redirect()->to('/group/'.$groupId)->with('flash-error', 'Nemůžete odebrat sám sebe!');
-        }
-
-        $this->userGroupModel->removeUserFromGroup($groupId, $userId);
-        return redirect()->to('/group/'.$groupId)->with('flash-success', 'Úspěšně odebráno!');
+  public function removeUserFromGroup($groupId, $userId)
+  {
+    if ($userId == User::user()->id) {
+      return redirect()->to('/group/' . $groupId)->with('flash-error', 'Nemůžete odebrat sám sebe!');
     }
 
-    public function deleteGroup($id)
-    {
-<<<<<<< HEAD
-      $model = new Model();
-      $model->deleteGroupsUsersByGroupId($id);
-      $model->deleteGroupById($id);
-      $data['settings'] = $this->siteSettings;
+    $this->userGroupModel->removeUserFromGroup($groupId, $userId);
+    return redirect()->to('/group/' . $groupId)->with('flash-success', 'Úspěšně odebráno!');
+  }
 
-=======
-      $this->userGroupModel->deleteGroupsUsersByGroupId($id);
-      $this->groupModel->deleteGroupById($id);
-      
->>>>>>> 3e38d418f25e402cdaaa59e92ab5ef4e09029d2c
-      return redirect()->to('/profile')->with('flash-success', 'Skupina smazána!');
-    }
+  public function deleteGroup($id)
+  {
+    $this->userGroupModel->deleteGroupsUsersByGroupId($id);
+    $this->groupModel->deleteGroupById($id);
 
+    return redirect()->to('/profile')->with('flash-success', 'Skupina smazána!');
+  }
 }

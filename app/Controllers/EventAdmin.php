@@ -26,7 +26,7 @@ class EventAdmin extends BaseController
 
     return redirect()->to('/admin/events')->with('flash-success', 'Event smazán!');
   }
-  
+
   public function editEventView($id){
     $e = $this->eventModel->getEventById($id);
     $data['event'] = $e;
@@ -91,15 +91,4 @@ class EventAdmin extends BaseController
     }
   }
 
-  public function removeGroupFromEvent($eventGroupId, $eventId)
-  {
-    $data['settings'] = $this->siteSettings;
-
-    $model = new Model();
-    if ($model->removeGroupFromEvent($eventGroupId)) {
-      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Úspěšně odebráno!');
-    } else {
-      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-error', 'Odebrání neuspěšné!');
-    }
-  }
 }
