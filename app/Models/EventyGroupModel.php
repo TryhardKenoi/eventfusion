@@ -15,4 +15,13 @@ class EventyGroupModel extends \CodeIgniter\Model
     ];
     protected $returnType = "object";
 
+
+    function removeGroupFromEvent($egId)
+    {
+      $builder = $this->db->table('eventy_groups');
+  
+      $builder->where('id', $egId);
+      $builder->delete();
+      return true;
+    }
 }

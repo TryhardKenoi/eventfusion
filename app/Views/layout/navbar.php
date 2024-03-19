@@ -3,7 +3,7 @@
       <div class="navbar-brand">
         <a class="navbar-brand" href="<?= base_url('/') ?>">
           <img src="<?= base_url('/eventfussion.png'); ?>" width="50" height="50" class="d-inline-block align-top" alt="">
-          <h1 class="d-inline"><?= $settings['site_name']; ?></h1>
+          <h1 class="d-inline">EventFusion</h1>
         </a>
       </div>
 
@@ -18,7 +18,6 @@
 
           <?php if (\App\Helpers\User::isLoggedIn()): ?>            
             <?php if(\App\Helpers\User::isAdmin()): ?>
-              <li class="nav-item"><a class="nav-link" href="<?= base_url('/settings')?>">Nastavení</a></li>
               <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/groups')?>">Skupiny</a></li>
               <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/users')?>">Uživatelé</a></li>
               <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/events')?>">Eventy</a></li>
