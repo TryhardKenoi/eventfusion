@@ -42,7 +42,6 @@ class Model
     return $result->getResult()[0];
   }
 
-
   function getEventById($id)
   {
     $builder = $this->db->table('eventy AS e');

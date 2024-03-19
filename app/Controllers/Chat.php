@@ -27,7 +27,7 @@ class Chat extends BaseController
 
     $chat = $this->chatModel->select('chat.*,eventy.nazev_eventu')->join('eventy', 'eventy.id=chat.event_id','left')->where('event_id', $id)->get()->getResult()[0];
     $data['chat'] = $chat;
-    
+    $data['settings'] = $this->siteSettings;
     return view('chat', $data);  
   }
 

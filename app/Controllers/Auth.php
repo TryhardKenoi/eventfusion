@@ -2,12 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\SiteSettingsModel;
+
 class Auth extends \IonAuth\Controllers\Auth
 {
+  protected $siteSettings;
+
   public function __construct()
   {
       parent::__construct();
       // Volání konstruktoru původního controlleru, abyste zachovali jeho funkcionalitu
+      $this->siteSettings = (new SiteSettingsModel())->getSettings();
   }
 
 
@@ -21,13 +26,16 @@ class Auth extends \IonAuth\Controllers\Auth
   public function signForm()
   {
     helper('form');
-    return view('auth/login');
+    $data['settings'] = $this->siteSettings;
+
+    return view('auth/login', $data);
   }
 
 
   public function login()
 	{
     $data = [];
+    $data['settings'] = $this->siteSettings;
 
 		$this->data['title'] = lang('Auth.login_heading');
 
@@ -52,9 +60,9 @@ class Auth extends \IonAuth\Controllers\Auth
     }else {
        // check to see if the user is logging in
 			// check for "remember me"
-			$remember = (bool)$this->request->getVar('remember');
+			$remember = (bool)$this->request->getPost('remember');
 
-			if ($this->ionAuth->login($this->request->getVar('identity'), $this->request->getVar('password'), $remember))
+			if ($this->ionAuth->login($this->request->getPost('identity'), $this->request->getPost('password'), $remember))
 			{
 				//if the login is successful
 				//redirect them back to the home page

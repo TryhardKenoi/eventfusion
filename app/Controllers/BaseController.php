@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\EventModel;
+use App\Models\SiteSettingsModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -39,6 +42,12 @@ class BaseController extends Controller
      * @var array
      */
     protected $helpers = [];
+    protected SiteSettingsModel $model;
+
+    protected $siteSettings;
+    protected $eventModel;
+    protected $userModel;
+
 
     /**
      * Constructor.
@@ -48,8 +57,14 @@ class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        $this->model = new SiteSettingsModel();
+
         // Preload any models, libraries, etc, here.
         $this->ionAuth = new IonAuth();
+        $this->siteSettings = $this->model->getSettings();
+        
+        $this->eventModel = new EventModel();
+        $this->userModel = new UserModel();
 
         // E.g.: $this->session = \Config\Services::session();
     }

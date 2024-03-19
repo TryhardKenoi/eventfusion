@@ -36,6 +36,15 @@ $routes->setAutoRoute(true);
 //Routes - veřejné trasy
 $routes->get('/', 'Home::index');
 
+//Routy pro nastaveni webu, filter pouze admin
+$routes->group('/settings', ['filter'=>'admin'], function($routes) {
+	//pridani nastaveni
+	$routes->get('/', 'SiteSettingsController::index');
+	
+	//ulozeni nastaveni
+	$routes->post('/', 'SiteSettingsController::save');
+});
+
 //Routes - Trasy s oprávněním přihlášeného uživatele
 $routes->group('/', ['filter'=> 'auth'],function($routes) {
 	//Routes - Trasy související s eventy

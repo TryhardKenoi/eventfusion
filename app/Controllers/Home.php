@@ -21,11 +21,12 @@ class Home extends BaseController
   {
     $model = new GetEvent();
     $events = $model->getDataWithID();
-    //$events = $model->findAll();
+
     return view('index', 
       [
         'events' => $events,
         'eventsList' => $this->getEvents(),
+        'settings'=>$this->siteSettings
       ]
     );
   }

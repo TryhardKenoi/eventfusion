@@ -64,8 +64,16 @@ ul {
 }
 
 
-/*FullCalendar*/
+/*MAIN*/
+main {
+    height: calc(100vh - 118px) !important;
+}
 
+
+/*FullCalendar*/
+.calendar {
+    margin-bottom: 3rem;
+}
 
 /*Navbar */
 .navbar {
@@ -124,6 +132,7 @@ ul {
     background-color: white;
     border-radius: 10px;
 }
+
 
 @media (max-width: 800px) {
     .navbar {

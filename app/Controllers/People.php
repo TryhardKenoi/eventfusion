@@ -34,12 +34,16 @@ class People extends BaseController
     }
 
     $data['user_groups'] = $groups;
+    $data['settings'] = $this->siteSettings;
+
     return view('user/profil', $data);
   }
 
   public function changeDetailsView($id){
     $model = new Model();
     $data['user'] = $model->getUserById($id);
+    $data['settings'] = $this->siteSettings;
+
     return view('user/changeDetails', $data);
   }
 
@@ -49,6 +53,7 @@ class People extends BaseController
     $userDB = $model->find($id);
 
     $password = $userDB->password;
+    $data['settings'] = $this->siteSettings;
 
 
     if(!empty($data['password']) && !empty($data['old_password']) && !empty($data['password-again'])){
@@ -101,6 +106,8 @@ class People extends BaseController
     $data['group'] = $model->getGroupById($id);
     $data['people'] = $model->getUsers($id);
     $data['users'] = $model->getUsersByGroupId($id);
+    $data['settings'] = $this->siteSettings;
+
     return view('groups/group', $data);
   }
 
@@ -130,7 +137,9 @@ class People extends BaseController
   public function registerView(){
     
     helper('form');
-    return view('auth/register');
+    $data['settings'] = $this->siteSettings;
+
+    return view('auth/register', $data);
   }
 
   public function registerPost()
@@ -182,12 +191,16 @@ class People extends BaseController
       return redirect()->to('/auth/login');
     }
     
+    $data['settings'] = $this->siteSettings;
+
     return view('auth/register', $data);
   }
 
     public function removeUserFromGroup($groupId, $userId)
     {
         $model = new Model();
+        $data['settings'] = $this->siteSettings;
+
 
         if($userId == User::user()->id) {
             return redirect()->to('/group/'.$groupId)->with('flash-error', 'Nemůžete odebrat sám sebe!');
@@ -202,7 +215,8 @@ class People extends BaseController
       $model = new Model();
       $model->deleteGroupsUsersByGroupId($id);
       $model->deleteGroupById($id);
-      
+      $data['settings'] = $this->siteSettings;
+
       return redirect()->to('/profile')->with('flash-success', 'Skupina smazána!');
     }
 

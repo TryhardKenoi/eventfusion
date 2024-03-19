@@ -25,5 +25,5 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<?= base_url('/assets/bootstrap/js/chat.js'); ?>"></script>
+<script type="text/javascript" src="<?= base_url('/assets/js/chat.js?v=2'); ?>"></script>
 <?= $this->endSection(); ?>

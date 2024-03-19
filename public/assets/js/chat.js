@@ -1,3 +1,15 @@
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
 $(document).ready(() => {
   const chat = $('.chat-list');
   let msgList = [];
@@ -15,7 +27,7 @@ $(document).ready(() => {
               msgList.push(msg); 
               const messageTime = new Date(msg.time);
               const formattedTime = messageTime.toLocaleString([], { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-              const messageItem = "<li class='my-4 d-flex flex-column align-items-" + (userId == msg.user_id ? 'end' : 'start') + "'><span class='text-muted'>" + formattedTime + "</span><div><strong>" + msg.first_name + " " + msg.last_name + ":</strong> " + msg.message + "</div></li>";
+              const messageItem = "<li class='my-4 d-flex flex-column align-items-" + (userId == msg.user_id ? 'end' : 'start') + "'><span class='text-muted'>" + formattedTime + "</span><div><strong>" + msg.first_name + " " + msg.last_name + ":</strong> " + escapeHtml(msg.message) + "</div></li>";
               chat.append(messageItem);
               
               // Posunout scrollování na maximální hodnotu
@@ -37,7 +49,7 @@ $(document).ready(() => {
 
     if(message) {
       $.ajax({
-        url: "http://localhost/chat",
+        url: "https://eventfusion.online/chat",
         type: "POST",
         data: {message,uid:userId,chid:ch},
         success: function(data) {

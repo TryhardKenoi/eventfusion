@@ -56,17 +56,14 @@ foreach ($events as $event) {
 
   </div>
 
-  <div class="px-3" id="calendar"></div>
+  <div class="calendar" id="calendar"></div>
 
-
-<script type="text/javascript" src="<?= base_url('/assets/bootstrap/js/jquery.js'); ?>"></script>
 
 <script>
 $(document).ready(function() {
 
   var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       timeZone: 'Europe/Prague',
       lang: 'CZ',
       height: 800,

@@ -20,7 +20,10 @@ class EventAdmin extends BaseController
     $this->db = \Config\Database::connect();
   }
 
-  public function getAllEvents(){
+  public function getAllEvents()
+  {
+    $data['settings'] = $this->siteSettings;
+
     $model = new EventModel();
     $data['event'] = $model->findAll();
 
@@ -28,14 +31,20 @@ class EventAdmin extends BaseController
   }
 
 
-  public function deleteEvent($id){
+  public function deleteEvent($id)
+  {
+    $data['settings'] = $this->siteSettings;
+
     $model = new EventModel();
     $model->deleteEventAndRelated($id);
 
     return redirect()->to('/admin/events')->with('flash-success', 'Event smazán!');
-}
+  }
 
-public function editEventView($id){
+  public function editEventView($id)
+  {
+    $data['settings'] = $this->siteSettings;
+
     $model = new Model();
     $e = $model->getEventById($id);
     $data['event'] = $e;
@@ -47,14 +56,17 @@ public function editEventView($id){
     return view('events/editEventAdmin', $data);
   }
 
-  public function editEventSubmit($eventId){
+  public function editEventSubmit($eventId)
+  {
+    $data['settings'] = $this->siteSettings;
+
     $data = $this->request->getPost();
     $model = new EventModel();
-    
+
     $euModel = new EventyUserModel();
     $egModel = new EventyGroupModel();
 
-    
+
     $userList = $this->request->getPost('users');
     $groupList = $this->request->getPost('groups');
 
@@ -62,48 +74,53 @@ public function editEventView($id){
       'nazev_eventu' => $data['name'],
       'zacatek_eventu' => $data['start'],
       'konec_eventu' => $data['end'],
-      'color' =>$data['color'],
+      'color' => $data['color'],
       'description' => $data['description'],
       'latitute' => $data['latitute'],
       'longtitute' => $data['longtitute']
     ];
 
-    
-    if($userList != null) {
-      foreach($userList as $id){
-        $euModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
+
+    if ($userList != null) {
+      foreach ($userList as $id) {
+        $euModel->insert(['user_id' => $id, 'event_id' => $eventId]);
       }
     }
 
-    if($groupList != null) {
-      foreach($groupList as $id){
-        $egModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
+    if ($groupList != null) {
+      foreach ($groupList as $id) {
+        $egModel->insert(['group_id' => $id, 'event_id' => $eventId]);
       }
     }
-    
+
 
     $model->update($eventId, $prep);
-    return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-success', 'Změna úspěšná!');
+    return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Změna úspěšná!');
   }
 
 
-  public function removeUserFromEvent($eventUserID, $eventId){
+  public function removeUserFromEvent($eventUserID, $eventId)
+  {
+    $data['settings'] = $this->siteSettings;
+
     $model = new Model();
 
-    if($model->removeUserFromEvent($eventUserID)){
-      return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-success', 'Úspěšně odebráno!');
-    }else{
-      return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-error', 'Odebrání neuspěšné!');
-    }    
-  }
-
-  public function removeGroupFromEvent($eventGroupId, $eventId){
-    $model = new Model();
-    if($model->removeGroupFromEvent($eventGroupId)){
-      return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-success', 'Úspěšně odebráno!');
-    }else{
-      return redirect()->to('/admin/event/edit/'.$eventId)->with('flash-error', 'Odebrání neuspěšné!');
+    if ($model->removeUserFromEvent($eventUserID)) {
+      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Úspěšně odebráno!');
+    } else {
+      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-error', 'Odebrání neuspěšné!');
     }
   }
-  
+
+  public function removeGroupFromEvent($eventGroupId, $eventId)
+  {
+    $data['settings'] = $this->siteSettings;
+
+    $model = new Model();
+    if ($model->removeGroupFromEvent($eventGroupId)) {
+      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-success', 'Úspěšně odebráno!');
+    } else {
+      return redirect()->to('/admin/event/edit/' . $eventId)->with('flash-error', 'Odebrání neuspěšné!');
+    }
+  }
 }
