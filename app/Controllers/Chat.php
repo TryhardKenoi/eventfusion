@@ -35,14 +35,14 @@ class Chat extends BaseController
   {
     $id = $this->request->getVar('evid');
     $chat = $this->chatModel->select('chat.*,eventy.nazev_eventu')
-    ->join('eventy', 'eventy.id=chat.event_id','left')
-    ->where('event_id', $id)->get()->getResult()[0];
+      ->join('eventy', 'eventy.id=chat.event_id','left')
+      ->where('event_id', $id)->get()->getResult()[0];
   
     $data['chat'] = $chat;
     $data['messages'] = $this->chatMessageModel
-                              ->select('chat_message.*, users.last_name,users.first_name')
-                              ->join('users','users.id=chat_message.user_id','left')
-                              ->where('chat_id', $chat->id)->findAll();
+      ->select('chat_message.*, users.last_name,users.first_name')
+      ->join('users','users.id=chat_message.user_id','left')
+      ->where('chat_id', $chat->id)->findAll();
 
     return json_encode($data);
   }
@@ -58,7 +58,6 @@ class Chat extends BaseController
       'message'=>$message,
       'chat_id'=>$chid
     ]);
-
 
     return json_encode(['status'=>200]);
   }

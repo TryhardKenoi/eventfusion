@@ -227,13 +227,6 @@ if (str_contains($zacatek, '00:00:00') && str_contains($konec, '00:00:00')) {
 <?php
 $curentUserID = \App\Helpers\User::user()->id;
 ?>
-
-<script src="<?= base_url('assets/js/leaflat.js'); ?>"></script>
-
-<!-- DualListbox JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
-<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script>
-
 <script>
   const currentUserId = '<?= $curentUserID ?>';
   const eventId = '<?= $event->creator_id; ?>';

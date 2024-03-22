@@ -17,7 +17,7 @@
   </div>
 <?php endif; ?>
 
-<div class="container mt-5">
+<div class=" p-3 mx-auto justify-content-center w-50">
   <h1>Přidejte event</h1>
   <form action="<?php echo base_url('/event/create'); ?>" method="post">
     <div class="mb-3">
@@ -54,7 +54,6 @@
         <option value="none">Nikdy</option>
         <option value="day">Každý den</option>
         <option value="week">Každý týden</option>
-        <option value="2weeks">Každé dva týdny</option>
         <option value="month">Každý měsíc</option>
         <option value="year">Každý rok</option>
       </select>
@@ -98,17 +97,8 @@
     <button type="submit" id="testing" class="btn btn-primary">Odeslat</button>
   </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
-<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script>
-<script src="<?= base_url('assets/js/flatpickr.cs.js') ?>"></script>
+
 <script>
-  flatpickr("#rozgah_datum", {
-    enableTime: false,
-    mode: "range",
-    dateFormat: "Y-m-d",
-    locale:'cs'
-  });
   function handleCheckboxChange(event) {
     var timeInputs = document.getElementById('timeInputs');
     var sTime = document.getElementById('startTime');

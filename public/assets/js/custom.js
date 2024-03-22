@@ -1,4 +1,13 @@
 $(document).ready(() => {
+
+  //definovani flatpickru pro vybrani datumu eventu
+  flatpickr("#rozgah_datum", {
+    enableTime: false,
+    mode: "range",
+    dateFormat: "Y-m-d",
+    locale:'cs'
+  });
+
   //const kdyz nebudu promenout menit
   //let kdyz ve for cyklu nastavim let i = 1 a pak ++
 

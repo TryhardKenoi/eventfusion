@@ -2,17 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\SiteSettingsModel;
 
 class Auth extends \IonAuth\Controllers\Auth
 {
-  protected $siteSettings;
 
   public function __construct()
   {
       parent::__construct();
       // Volání konstruktoru původního controlleru, abyste zachovali jeho funkcionalitu
-      $this->siteSettings = (new SiteSettingsModel())->getSettings();
   }
 
 
@@ -24,9 +21,10 @@ class Auth extends \IonAuth\Controllers\Auth
   protected $viewsFolder = 'auth';
 
   public function signForm()
-  {
+  {    
+    $data = [];
+
     helper('form');
-    $data['settings'] = $this->siteSettings;
 
     return view('auth/login', $data);
   }
@@ -35,7 +33,6 @@ class Auth extends \IonAuth\Controllers\Auth
   public function login()
 	{
     $data = [];
-    $data['settings'] = $this->siteSettings;
 
 		$this->data['title'] = lang('Auth.login_heading');
 

@@ -65,141 +65,21 @@ class Event extends BaseController
     $repeat = $this->request->getPost('repeat');
     $multiplier = $this->request->getPost('multiplier');
 
-    switch($repeat){
-      case 'none':
-        $rozgahDatum = $this->request->getPost('rozgah_datum');  
-        $datum = $this->datum->splitDate($rozgahDatum);
-        $data['zacatek_eventu'] = $datum['zacatek_eventu'] ." " . $this->request->getPost('startTime');
-        $data['konec_eventu'] = $datum['konec_eventu'] ." " . $this->request->getPost('endTime');
-        $this->eventModel->insert($data);
-        $eventId = $this->eventModel->getInsertID();
-        if($userList != null) {
-          foreach($userList as $id){
-            $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-          }
-        }
-        if($groupList != null) {
-          foreach($groupList as $id){
-            $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-          }
-        }
-      break;
-      case 'day':
-        for ($i = 0; $i < $multiplier; $i++) {
-          $rozgahDatum = $this->request->getPost('rozgah_datum');  
-          $datum = $this->datum->splitDate($rozgahDatum);
-          $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} days"));
-          $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} days"));
-          $data['zacatek_eventu'] = $taskDate ." " . $this->request->getPost('startTime');
-          $data['konec_eventu'] = $taskDate2 ." " . $this->request->getPost('endTime');
-          $this->eventModel->insert($data);
-          $eventId = $this->eventModel->getInsertID();
-          if($userList != null) {
-            foreach($userList as $id){
-              $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          if($groupList != null) {
-            foreach($groupList as $id){
-              $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          
-      }
-      break;
-      case 'week':
-        for ($i = 0; $i < $multiplier; $i++) {
-          $rozgahDatum = $this->request->getPost('rozgah_datum');  
-          $datum = $this->datum->splitDate($rozgahDatum);
-          $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} weeks"));
-          $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} weeks"));
-          $data['zacatek_eventu'] = $taskDate ." " . $this->request->getPost('startTime');
-          $data['konec_eventu'] = $taskDate2 ." " . $this->request->getPost('endTime');
-          $this->eventModel->insert($data);
-          $eventId = $this->eventModel->getInsertID();
-          if($userList != null) {
-            foreach($userList as $id){
-              $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          if($groupList != null) {
-            foreach($groupList as $id){
-              $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-            }
+    for ($i = 0; $i < $multiplier; $i++) {
+      $rozgahDatum = $this->request->getPost('rozgah_datum');
+      $datum = $this->datum->splitDate($rozgahDatum);
+      $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} {$repeat}"));
+      $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} {$repeat}"));
+      $data['zacatek_eventu'] = $taskDate . " " . $this->request->getPost('startTime');
+      $data['konec_eventu'] = $taskDate2 . " " . $this->request->getPost('endTime');
+      $this->eventModel->insert($data);
+      $eventId = $this->eventModel->getInsertID();
+      if ($userList != null) {
+          foreach ($userList as $id) {
+              $this->eventUserModel->insert(['user_id' => $id, 'event_id' => $eventId]);
           }
       }
-      break;
-      case '2weeks':
-        for ($i = 0; $i < $multiplier; $i++) {
-          $rozgahDatum = $this->request->getPost('rozgah_datum');  
-          $datum = $this->datum->splitDate($rozgahDatum);
-          $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +". (2 * $i) ." weeks"));
-          $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +". (2 * $i) ." weeks"));
-          $data['zacatek_eventu'] = $taskDate ." " . $this->request->getPost('startTime');
-          $data['konec_eventu'] = $taskDate2 ." " . $this->request->getPost('endTime');
-          $this->eventModel->insert($data);
-          $eventId = $this->eventModel->getInsertID();
-          if($userList != null) {
-            foreach($userList as $id){
-              $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          if($groupList != null) {
-            foreach($groupList as $id){
-              $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-      }
-      break;
-      case 'month':
-        for ($i = 0; $i < $multiplier; $i++) {
-          $rozgahDatum = $this->request->getPost('rozgah_datum');  
-          $datum = $this->datum->splitDate($rozgahDatum);
-          $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} months"));
-          $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} months"));
-          $data['zacatek_eventu'] = $taskDate ." " . $this->request->getPost('startTime');
-          $data['konec_eventu'] = $taskDate2 ." " . $this->request->getPost('endTime');
-          $this->eventModel->insert($data);
-          $eventId = $this->eventModel->getInsertID();
-          if($userList != null) {
-            foreach($userList as $id){
-              $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          if($groupList != null) {
-            foreach($groupList as $id){
-              $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-      }
-      break;
-      case 'year':
-        for ($i = 0; $i < $multiplier; $i++) {
-          $rozgahDatum = $this->request->getPost('rozgah_datum');  
-          $datum = $this->datum->splitDate($rozgahDatum);
-          $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} years"));
-          $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} years"));
-          $data['zacatek_eventu'] = $taskDate ." " . $this->request->getPost('startTime');
-          $data['konec_eventu'] = $taskDate2 ." " . $this->request->getPost('endTime');
-          $this->eventModel->insert($data);
-          $eventId = $this->eventModel->getInsertID();
-          if($userList != null) {
-            foreach($userList as $id){
-              $this->eventUserModel->insert(['user_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-          if($groupList != null) {
-            foreach($groupList as $id){
-              $this->eventGroupModel->insert(['group_id' => $id, 'event_id'=>$eventId]);
-            }
-          }
-      }
-      break;
-      default:
-        
-      break;
     }
-
 
 
     return redirect()->to('/')->with('flash-success', 'Přidáno!');

@@ -97,7 +97,6 @@
       <input type="text" name="latitute" value="<?= $event->latitute; ?>" id="latitute" readonly />
       <input type="text" name="longtitute" value="<?= $event->longtitute; ?>" id="longtitute" readonly />
       <div id="map" style="height: 400px;"></div>
-      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
       <script>
         var la = <?= json_encode($event->latitute) ?>;
@@ -138,10 +137,5 @@
     </div>
     <button type="submit" id="submitButton" class="btn btn-primary mb-5" name="button">Uložit změny</button>
 </div>
-
-<script src="<?= base_url('assets/js/leaflat.js'); ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.1/jquery.bootstrap-duallistbox.min.js"></script>
-
-<script src="<?= base_url('assets/js/duallistbox.cs.js'); ?>"></script> 
 
 <?= $this->endSection(); ?>

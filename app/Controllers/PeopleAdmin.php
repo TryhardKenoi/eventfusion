@@ -142,7 +142,7 @@ class PeopleAdmin extends BaseController
     $data['group'] = $this->groupModel->getGroupById($id);
     $data['people'] = $this->userModel->getUsers($id);
     $data['users'] = $this->userModel->getUsersByGroupId($id);
-    return view('groups/editgroup', $data);
+    return view('groups/editGroup', $data);
   }
 
   public function addUserToGroup($id)

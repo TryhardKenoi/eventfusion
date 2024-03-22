@@ -48,7 +48,6 @@ class BaseController extends Controller
      * @var array
      */
     protected $helpers = [];
-    protected SiteSettingsModel $model;
 
     /**
      * Promene modelu
@@ -73,11 +72,8 @@ class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        $this->model = new SiteSettingsModel();
-
         // Preload any models, libraries, etc, here.
         $this->ionAuth = new IonAuth();
-        $this->siteSettings = $this->model->getSettings();
         
         $this->eventModel = new EventModel();
         $this->userModel = new UserModel();

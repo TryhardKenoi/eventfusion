@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<html lang='cs'>
-
-<head>
-    <title><?= $settings['site_name']; ?></title>
-    <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
-  <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/custom.css'); ?>">
-  <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/login.css'); ?>">
-  <link type="text/css" rel="stylesheet" href="<?= base_url('assets/css/util.css'); ?>">
-    <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-    <meta charset='utf-8' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="icon" href="<?= base_url('/eventfussion.png'); ?>">
-
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
-</head>
-
-
-<body">
-    <div class="limiter">
+<?php $this->extend('auth/Auth'); ?>
+<?= $this->section('content'); ?>
+<div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form id="registerForm" action="<?= base_url('auth/register') ?>" method="post">
@@ -98,19 +73,4 @@
             </div>
         </div>
     </div>
-
-
-
-    <script type="text/javascript" src="<?= base_url('/assets/bootstrap/js/jquery.js'); ?>"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.9/index.global.min.js'></script>
-    <script type="text/javascript" src="<?= base_url('/assets/bootstrap/js/custom.js'); ?>"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/cs.js"></script>
-
-    <script src="<?= base_url('/assets/bootstrap/js/login.js'); ?>"></script>
-    </body>
-
-</html>
+<?php $this->endSection(); ?>
