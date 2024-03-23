@@ -52,36 +52,60 @@ class Event extends BaseController
     if(!$this->validate($validationRules, $validationMessages)){
       return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
+    $datum = $this->datum->splitDate($this->request->getPost("rozgah_datum"));
 
     $data = [
       'nazev_eventu' => $this->request->getPost('nazev_eventu'),
-      'zacatek_eventu' => null,
-      'konec_eventu' => null,
+      'zacatek_eventu' => $datum['zacatek_eventu'],
+      'konec_eventu' => $datum['konec_eventu'],
       'color' => $this->request->getPost('color'),
       'creator_id' => $userId,
       'description' => $description
     ];
 
     $repeat = $this->request->getPost('repeat');
-    $multiplier = $this->request->getPost('multiplier');
-
-    for ($i = 0; $i < $multiplier; $i++) {
-      $rozgahDatum = $this->request->getPost('rozgah_datum');
-      $datum = $this->datum->splitDate($rozgahDatum);
-      $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} {$repeat}"));
-      $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} {$repeat}"));
-      $data['zacatek_eventu'] = $taskDate . " " . $this->request->getPost('startTime');
-      $data['konec_eventu'] = $taskDate2 . " " . $this->request->getPost('endTime');
-      $this->eventModel->insert($data);
-      $eventId = $this->eventModel->getInsertID();
-      if ($userList != null) {
+    $multiplier = (int) $this->request->getPost('multiplier');
+    if($repeat != "none") {
+      for ($i = 0; $i < $multiplier; $i++) {
+        $rozgahDatum = $this->request->getPost('rozgah_datum');
+        $datum = $this->datum->splitDate($rozgahDatum);
+        $taskDate = date('Y-m-d', strtotime($datum['zacatek_eventu'] . " +{$i} {$repeat}"));
+        $taskDate2 = date('Y-m-d', strtotime($datum['konec_eventu'] . " +{$i} {$repeat}"));
+        $data['zacatek_eventu'] = $taskDate . " " . $this->request->getPost('startTime');
+        $data['konec_eventu'] = $taskDate2 . " " . $this->request->getPost('endTime');
+        //ulozeni samostatneho eventu
+        $this->eventModel->insert($data);
+        //ziskani ID ulozeneho eventu
+        $eventId = $this->eventModel->getInsertID();
+  
+        if ($userList != null) {
           foreach ($userList as $id) {
               $this->eventUserModel->insert(['user_id' => $id, 'event_id' => $eventId]);
           }
+        }
+
+        if ($groupList != null) {
+          foreach ($groupList as $id) {
+              $this->eventGroupModel->insert(['group_id' => $id, 'event_id' => $eventId]);
+          }
+        }
       }
-    }
+    }else {
+      $this->eventModel->insert($data);
+      $eventId = $this->eventModel->getInsertID();
 
+      if ($userList != null) {
+        foreach ($userList as $id) {
+            $this->eventUserModel->insert(['user_id' => $id, 'event_id' => $eventId]);
+        }
+      }
 
+      if ($groupList != null) {
+        foreach ($groupList as $id) {
+            $this->eventGroupModel->insert(['group_id' => $id, 'event_id' => $eventId]);
+        }
+      }
+    }  
     return redirect()->to('/')->with('flash-success', 'Přidáno!');
   }
 
