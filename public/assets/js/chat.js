@@ -49,7 +49,8 @@ $(document).ready(() => {
 
     if(message) {
       $.ajax({
-        url: "https://eventfusion.online/chat",
+        url: "http://localhost/chat",
+        //url: "https://eventfusion.online/chat",
         type: "POST",
         data: {message,uid:userId,chid:ch},
         success: function(data) {
