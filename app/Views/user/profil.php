@@ -69,6 +69,15 @@
                     </div>
                   </div>
                   <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Společnost</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    <?= \App\Helpers\User::user()->company; ?>
+                    </div>
+                  </div>
+                  <hr>
                     <div class="col-sm-12">
                       <a class="btn btn-info " target="" href="<?= base_url('profile/details/'. \App\Helpers\User::user()->id); ?>">Upravit</a>
                     </div>

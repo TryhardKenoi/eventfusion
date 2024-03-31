@@ -1,25 +1,3 @@
-<?php
-$events_data = [];
-
-foreach ($events as $event) {
-    $id = $event->id;
-    $title = $event->nazev_eventu;
-    $start = $event->zacatek_eventu;
-    $end = $event->konec_eventu;
-    $color = $event->color;
-
-    // Přidejte data události do pole
-    $events_data[] = [
-        'test' => $id,
-        'title' => $title,
-        'start' => $start,
-        'end' => $end,
-        'color' => $color,
-        'allDay' => (strstr($start, "00:00:00"))?true:false
-    ];
-}
-?>
-
 <?= $this->extend('layout/Master'); ?>
 <?= $this->section('content'); ?>
   <div class="text-center pt-5">
@@ -83,7 +61,7 @@ $(document).ready(function() {
       allDayText:'Celý den',
       customButtons: {
             myCustomButton: {
-                text: '+',
+                text: '+ Nová událost',
                 click: function() {
                     window.location.href = '<?= base_url('/event/create'); ?>'
                 }
@@ -98,11 +76,11 @@ $(document).ready(function() {
         const eventId = info.event._def.publicId;
         const url = "<?= base_url('/event') ?>"+'/'+eventId;
        
-        $.ajax(url,{  //ajax = pomůcka, která dovolí poslat request na server, aniž bych musel obnovit stránku
-          type: 'GET',  //typ routy (např. POST, GET)
-          success: function(data) { //funkce s parametrem data, data = hodnota
-            const event = JSON.parse(data); //do proměnné event přidám data v jazyku JSONU
-            $('.modal-title').html(event.nazev_eventu);  //itemu, který obsahu třídu "modal-title", nastavím html obsah na event.nazev_eventu
+        $.ajax(url,{  
+          type: 'GET', 
+          success: function(data) {
+            const event = JSON.parse(data); 
+            $('.modal-title').html(event.nazev_eventu);  
             $('.barvicka').css('background-color', event.color);
             $('.modal').addClass('show');
             console.log(event);
@@ -124,7 +102,6 @@ $(document).ready(function() {
             //skupiny
             if(event.groups.length > 0) {
               $('.modal-body3').html("<b>Skupiny: </b>" +event.groups.map((group) => group.name));
-                  // eventy.groups[0], eventy.groups[1],
             }else {
               $('.modal-body3').html("");
             }
@@ -132,7 +109,6 @@ $(document).ready(function() {
             //uzivatele
             if(event.users.length > 0) {
               $('.modal-body4').html("<b>Uživatelé: </b>" +event.users.map((user) => user.first_name +" " + user.last_name));
-                  // eventy.groups[0], eventy.groups[1],
             }else {
               $('.modal-body4').html("");
             }
