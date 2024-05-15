@@ -91,6 +91,8 @@ class Event extends BaseController
         }
       }
     }else {
+      $data['zacatek_eventu'] = $data['zacatek_eventu'] . " ". $this->request->getPost('startTime');
+      $data['konec_eventu'] = $data['konec_eventu'] ." ". $this->request->getPost('endTime');
       $this->eventModel->insert($data);
       $eventId = $this->eventModel->getInsertID();
 
